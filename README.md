@@ -1,5 +1,5 @@
 <h1>Gerenciador de Campeonatos da Escola "ChuteSal" </h1>
-<p> Sejam bem-vindos ao projeto de LAB <strong>Conhecendo o Projeto Spring Data JPA na Prática</strong> oferecido gratuitamente pela plataforma de cursos online <a href="https://dio.me/"><strong> Digital Innovation One</strong></a>.<br>
+<p> </p>
 
 <h2>🎯 Objetivo do Projeto</h2>
 <p> </p>
