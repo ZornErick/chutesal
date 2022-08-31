@@ -1,8 +1,8 @@
 <h1> Gerenciador de Campeonatos da Escola "ChuteSal" </h1>
-<p> </p>
+<p> Projeto em desenvolvimento para a a disciplina de prática profissinal em análise e desenvolvimento de sistemas pelo grupo JEG</p>
 
 <h2> Objetivo do Projeto </h2>
-<p> </p>
+<p> Desenvolver uma aplicação web com a finalidade de gerenciar campeonatos para a escola ChuteSal </p>
 
 <h2> Guia </h2>
 
