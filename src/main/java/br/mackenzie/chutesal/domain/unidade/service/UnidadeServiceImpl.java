@@ -2,10 +2,12 @@ package br.mackenzie.chutesal.domain.unidade.service;
 
 import br.mackenzie.chutesal.domain.unidade.Unidade;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UnidadeServiceImpl implements UnidadeService {
 
     @Override

@@ -25,7 +25,7 @@ public class Unidade {
     @ManyToOne
     private Endereco endereco;
 
-    @OneToMany
+    @OneToMany(mappedBy = "unidade")
     private List<Quadra> quadras;
 
     @OneToMany
