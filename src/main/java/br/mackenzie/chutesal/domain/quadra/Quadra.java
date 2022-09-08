@@ -21,6 +21,9 @@ public class Quadra {
     private Long id;
     private String nome;
 
+    @ManyToOne
     private Unidade unidade;
+
+    @OneToMany
     private List<Jogo> jogos = new ArrayList<>();
 }

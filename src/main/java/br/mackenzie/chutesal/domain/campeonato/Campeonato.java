@@ -28,7 +28,12 @@ public class Campeonato {
     private LocalDate periodoJogos;
     private LocalDate inicioDivulgacao;
 
+    @ManyToOne
     private Unidade unidade;
+
+    @OneToMany
     private List<Jogo> jogos = new ArrayList<>();
+
+    @OneToMany
     private List<Time> times = new ArrayList<>();
 }

@@ -22,7 +22,12 @@ public class Time {
     private Long id;
     private String nome;
 
+    @ManyToOne
     private Campeonato campeonato;
+
+    @OneToMany
     private List<Inscrito> inscritos = new ArrayList<>();
+
+    @ManyToMany
     private List<Jogo> jogos = new ArrayList<>();
 }

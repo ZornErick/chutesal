@@ -12,10 +12,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Setter
 public class LoginForm {
 
-    private String usuario;
-    private String senha;
+    private String username;
+    private String password;
 
-    public UsernamePasswordAuthenticationToken converter() {
-        return new UsernamePasswordAuthenticationToken(usuario, senha);
+    public UsernamePasswordAuthenticationToken convert() {
+        return new UsernamePasswordAuthenticationToken(username, password);
     }
 }

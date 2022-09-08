@@ -22,5 +22,6 @@ public class Inscrito {
     private String whatsapp;
     private LocalDate dataNascimento;
 
+    @ManyToOne
     private Time time;
 }

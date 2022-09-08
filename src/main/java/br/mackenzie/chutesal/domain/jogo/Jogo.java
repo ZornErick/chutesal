@@ -25,7 +25,12 @@ public class Jogo {
     private LocalDate data;
     private LocalDateTime horario;
 
+    @OneToOne
     private Campeonato campeonato;
+
+    @ManyToOne
     private Quadra quadra;
+
+    @ManyToMany
     private List<Time> times = new ArrayList<>(2);
 }

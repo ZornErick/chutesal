@@ -22,7 +22,12 @@ public class Unidade {
     private String nome;
     private Integer numero;
 
+    @ManyToOne
     private Endereco endereco;
+
+    @OneToMany
     private List<Quadra> quadras;
+
+    @OneToMany
     private List<Campeonato> campeonatos;
 }

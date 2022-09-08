@@ -1,4 +1,7 @@
 package br.mackenzie.chutesal.domain.time.service;
 
-public interface TimeService {
+import br.mackenzie.chutesal.domain.time.Time;
+import br.mackenzie.chutesal.util.CrudService;
+
+public interface TimeService extends CrudService<Time> {
 }

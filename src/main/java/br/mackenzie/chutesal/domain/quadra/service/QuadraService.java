@@ -1,4 +1,7 @@
 package br.mackenzie.chutesal.domain.quadra.service;
 
-public interface QuadraService {
+import br.mackenzie.chutesal.domain.quadra.Quadra;
+import br.mackenzie.chutesal.util.CrudService;
+
+public interface QuadraService extends CrudService<Quadra> {
 }

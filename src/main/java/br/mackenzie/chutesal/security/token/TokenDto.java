@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class TokenDto {
 
-    private String type;
     private String token;
+    private String type;
 }

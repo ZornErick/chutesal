@@ -1,4 +1,7 @@
 package br.mackenzie.chutesal.domain.inscrito.service;
 
-public interface InscritoService {
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
+import br.mackenzie.chutesal.util.CrudService;
+
+public interface InscritoService extends CrudService<Inscrito> {
 }
