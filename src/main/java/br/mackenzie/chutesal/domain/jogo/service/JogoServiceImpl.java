@@ -2,10 +2,12 @@ package br.mackenzie.chutesal.domain.jogo.service;
 
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class JogoServiceImpl implements JogoService {
 
     @Override

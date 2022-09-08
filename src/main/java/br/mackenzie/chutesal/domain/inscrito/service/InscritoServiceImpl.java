@@ -2,10 +2,12 @@ package br.mackenzie.chutesal.domain.inscrito.service;
 
 import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class InscritoServiceImpl implements InscritoService {
 
     @Override

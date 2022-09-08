@@ -2,10 +2,12 @@ package br.mackenzie.chutesal.domain.time.service;
 
 import br.mackenzie.chutesal.domain.time.Time;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TimeServiceImpl implements TimeService {
 
     @Override

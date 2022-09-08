@@ -1,6 +1,6 @@
-package br.mackenzie.chutesal.domain.campeonato.service;
+package br.mackenzie.chutesal.domain.role.service;
 
-import br.mackenzie.chutesal.domain.campeonato.Campeonato;
+import br.mackenzie.chutesal.domain.role.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,25 +8,25 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CampeonatoServiceImpl implements CampeonatoService {
+public class RoleServiceImpl implements RoleService {
 
     @Override
-    public List<Campeonato> findAll() {
+    public List<Role> findAll() {
         return null;
     }
 
     @Override
-    public Campeonato findById(Long id) {
+    public Role findById(Long id) {
         return null;
     }
 
     @Override
-    public Campeonato create(Campeonato entity) {
+    public Role create(Role entity) {
         return null;
     }
 
     @Override
-    public Campeonato update(Long id, Campeonato entity) {
+    public Role update(Long id, Role entity) {
         return null;
     }
 

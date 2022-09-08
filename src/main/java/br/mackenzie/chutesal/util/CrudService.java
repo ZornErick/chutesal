@@ -6,7 +6,7 @@ public interface CrudService<T> {
 
     List<T> findAll();
 
-    T findById(Long id) throws Exception;
+    T findById(Long id);
 
     T create(T entity);
 
