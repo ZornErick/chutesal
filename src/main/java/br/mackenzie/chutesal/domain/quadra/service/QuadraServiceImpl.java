@@ -1,7 +1,13 @@
 package br.mackenzie.chutesal.domain.quadra.service;
 
-import br.mackenzie.chutesal.domain.quadra.Quadra;
-import br.mackenzie.chutesal.domain.quadra.QuadraRepo;
+import br.mackenzie.chutesal.domain.jogo.Jogo;
+import br.mackenzie.chutesal.domain.jogo.JogoRepo;
+import br.mackenzie.chutesal.domain.quadra.*;
+import br.mackenzie.chutesal.domain.unidade.Unidade;
+import br.mackenzie.chutesal.domain.unidade.UnidadeRepo;
+import br.mackenzie.chutesal.util.crud.Form;
+import br.mackenzie.chutesal.util.crud.UpdateForm;
+import br.mackenzie.chutesal.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +20,14 @@ import java.util.Optional;
 public class QuadraServiceImpl implements QuadraService {
 
     private final QuadraRepo quadraRepo;
+    private final UnidadeRepo unidadeRepo;
+    private final JogoRepo jogoRepo;
 
     @Autowired
-    public QuadraServiceImpl(QuadraRepo quadraRepo) {
+    public QuadraServiceImpl(QuadraRepo quadraRepo, UnidadeRepo unidadeRepo, JogoRepo jogoRepo) {
         this.quadraRepo = quadraRepo;
+        this.unidadeRepo = unidadeRepo;
+        this.jogoRepo = jogoRepo;
     }
 
     @Override
@@ -28,24 +38,50 @@ public class QuadraServiceImpl implements QuadraService {
     @Override
     public Quadra findById(Long id) {
         Optional<Quadra> quadra = quadraRepo.findById(id);
-        if(quadra.isEmpty()) {
-            return null;
+        if(quadra.isPresent()) {
+            return quadra.get();
+        } else {
+            throw new NotFoundException("Quadra não encontrada!");
         }
-        return quadra.get();
     }
 
     @Override
-    public Quadra create(Quadra entity) {
-        return null;
+    public Quadra create(Form<Quadra> form) {
+        QuadraForm quadraForm = (QuadraForm) form;
+
+        Optional<Unidade> unidade = unidadeRepo.findById(quadraForm.getUnidadeId());
+        List<Jogo> jogos = jogoRepo.findAllById(quadraForm.getJogosId());
+
+        if(unidade.isPresent()) {
+            Quadra quadra = quadraForm.convert(unidade.get(), jogos);
+            return quadraRepo.save(quadra);
+        } else {
+            throw new NotFoundException("Unidade não encontrada!");
+        }
     }
 
     @Override
-    public Quadra update(Long id, Quadra entity) {
-        return null;
+    public Quadra update(Long id, UpdateForm<Quadra> updateForm) {
+        QuadraUpdateForm quadraUpdateForm = (QuadraUpdateForm) updateForm;
+
+        Optional<Unidade> unidade = unidadeRepo.findById(quadraUpdateForm.getUnidadeId());
+        List<Jogo> jogos = jogoRepo.findAllById(quadraUpdateForm.getJogosId());
+        Optional<Quadra> quadra = quadraRepo.findById(id);
+
+        if(quadra.isPresent() && unidade.isPresent()) {
+            return quadraUpdateForm.update(quadra.get(), unidade.get(), jogos);
+        } else {
+            throw new NotFoundException("Não foi possível alterar a quadra!");
+        }
     }
 
     @Override
     public void delete(Long id) {
-
+        Optional<Quadra> quadra = quadraRepo.findById(id);
+        if(quadra.isPresent()) {
+            quadraRepo.delete(quadra.get());
+        } else {
+            throw new NotFoundException("Quadra não encontrada!");
+        }
     }
 }

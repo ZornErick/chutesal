@@ -2,6 +2,7 @@ package br.mackenzie.chutesal.domain.quadra;
 
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +23,15 @@ public class Quadra {
     private String nome;
 
     @ManyToOne
+    @JsonManagedReference
     private Unidade unidade;
 
     @OneToMany
     private List<Jogo> jogos = new ArrayList<>();
+
+    public Quadra(String nome, Unidade unidade, List<Jogo> jogos) {
+        this.nome = nome;
+        this.unidade = unidade;
+        this.jogos = jogos;
+    }
 }

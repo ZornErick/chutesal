@@ -2,6 +2,9 @@ package br.mackenzie.chutesal.domain.usuario.service;
 
 import br.mackenzie.chutesal.domain.usuario.Usuario;
 import br.mackenzie.chutesal.domain.usuario.UsuarioRepo;
+import br.mackenzie.chutesal.util.crud.Form;
+import br.mackenzie.chutesal.util.crud.UpdateForm;
+import br.mackenzie.chutesal.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,36 +27,53 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<Usuario> findAll() {
-        return null;
+        return usuarioRepo.findAll();
     }
 
     @Override
     public Usuario findById(Long id) {
-        return null;
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+        if(usuario.isPresent()) {
+            return usuario.get();
+        } else {
+            throw new NotFoundException("Usuário não encontrado!");
+        }
     }
 
     @Override
     public Usuario findByUsername(String username) {
         Optional<Usuario> usuario = usuarioRepo.findByUsername(username);
-        if(usuario.isEmpty()) {
-            return null;
+        if(usuario.isPresent()) {
+            return usuario.get();
+        } else {
+            throw new NotFoundException("Usuário não encontrado!");
         }
-        return usuario.get();
     }
 
     @Override
-    public Usuario create(Usuario entity) {
-        return usuarioRepo.save(entity);
+    public Usuario create(Form<Usuario> form) {
+        Usuario usuario = form.convert();
+        return usuarioRepo.save(usuario);
     }
 
     @Override
-    public Usuario update(Long id, Usuario entity) {
-        return null;
+    public Usuario update(Long id, UpdateForm<Usuario> updateForm) {
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+        if(usuario.isPresent()) {
+            return updateForm.update(usuario.get());
+        } else {
+            throw new NotFoundException("Usuário não encontrado!");
+        }
     }
 
     @Override
     public void delete(Long id) {
-
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+        if(usuario.isPresent()) {
+            usuarioRepo.delete(usuario.get());
+        } else {
+            throw new NotFoundException("Usuário não encontrado!");
+        }
     }
 
     @Override
