@@ -36,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuario.isPresent()) {
             return usuario.get();
         } else {
-            throw new NotFoundException("Usuário não encontrado!");
+            throw new NotFoundException("Usuário " + id + " não encontrado!");
         }
     }
 
@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuario.isPresent()) {
             return usuario.get();
         } else {
-            throw new NotFoundException("Usuário não encontrado!");
+            throw new NotFoundException("Usuário " + username + " não encontrado!");
         }
     }
 
@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuario.isPresent()) {
             return updateForm.update(usuario.get());
         } else {
-            throw new NotFoundException("Usuário não encontrado!");
+            throw new NotFoundException("Usuário " + id + " não encontrado!");
         }
     }
 
@@ -72,7 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuario.isPresent()) {
             usuarioRepo.delete(usuario.get());
         } else {
-            throw new NotFoundException("Usuário não encontrado!");
+            throw new NotFoundException("Usuário " + id + " não encontrado!");
         }
     }
 

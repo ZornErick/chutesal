@@ -41,7 +41,7 @@ public class QuadraServiceImpl implements QuadraService {
         if(quadra.isPresent()) {
             return quadra.get();
         } else {
-            throw new NotFoundException("Quadra não encontrada!");
+            throw new NotFoundException("Quadra " + id + " não encontrada!");
         }
     }
 
@@ -56,7 +56,7 @@ public class QuadraServiceImpl implements QuadraService {
             Quadra quadra = quadraForm.convert(unidade.get(), jogos);
             return quadraRepo.save(quadra);
         } else {
-            throw new NotFoundException("Unidade não encontrada!");
+            throw new NotFoundException("Unidade " + quadraForm.getUnidadeId() + " não encontrada!");
         }
     }
 
@@ -64,9 +64,9 @@ public class QuadraServiceImpl implements QuadraService {
     public Quadra update(Long id, UpdateForm<Quadra> updateForm) {
         QuadraUpdateForm quadraUpdateForm = (QuadraUpdateForm) updateForm;
 
+        Optional<Quadra> quadra = quadraRepo.findById(id);
         Optional<Unidade> unidade = unidadeRepo.findById(quadraUpdateForm.getUnidadeId());
         List<Jogo> jogos = jogoRepo.findAllById(quadraUpdateForm.getJogosId());
-        Optional<Quadra> quadra = quadraRepo.findById(id);
 
         if(quadra.isPresent() && unidade.isPresent()) {
             return quadraUpdateForm.update(quadra.get(), unidade.get(), jogos);
@@ -81,7 +81,7 @@ public class QuadraServiceImpl implements QuadraService {
         if(quadra.isPresent()) {
             quadraRepo.delete(quadra.get());
         } else {
-            throw new NotFoundException("Quadra não encontrada!");
+            throw new NotFoundException("Quadra " + id + " não encontrada!");
         }
     }
 }

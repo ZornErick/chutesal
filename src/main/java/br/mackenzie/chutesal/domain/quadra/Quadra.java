@@ -2,7 +2,7 @@ package br.mackenzie.chutesal.domain.quadra;
 
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class Quadra {
     private String nome;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnore
     private Unidade unidade;
 
     @OneToMany

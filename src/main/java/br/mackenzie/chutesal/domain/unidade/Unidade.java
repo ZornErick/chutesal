@@ -3,7 +3,7 @@ package br.mackenzie.chutesal.domain.unidade;
 import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.quadra.Quadra;
 import br.mackenzie.chutesal.util.endereco.Endereco;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,9 +27,17 @@ public class Unidade {
     private Endereco endereco;
 
     @OneToMany(mappedBy = "unidade")
-    @JsonBackReference
+    @JsonIgnore
     private List<Quadra> quadras;
 
     @OneToMany
     private List<Campeonato> campeonatos;
+
+    public Unidade(String nome, Integer numero, Endereco endereco, List<Quadra> quadras, List<Campeonato> campeonatos) {
+        this.nome = nome;
+        this.numero = numero;
+        this.endereco = endereco;
+        this.quadras = quadras;
+        this.campeonatos = campeonatos;
+    }
 }

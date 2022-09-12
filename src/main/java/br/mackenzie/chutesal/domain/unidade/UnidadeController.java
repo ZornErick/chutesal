@@ -1,26 +1,61 @@
 package br.mackenzie.chutesal.domain.unidade;
 
+import br.mackenzie.chutesal.domain.unidade.service.UnidadeService;
 import br.mackenzie.chutesal.util.endereco.EnderecoCep;
 import br.mackenzie.chutesal.util.endereco.ViaCepClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/unidade")
 public class UnidadeController {
 
+    private final UnidadeService unidadeService;
     private final ViaCepClient viaCepClient;
 
     @Autowired
-    public UnidadeController(ViaCepClient viaCepClient) {
+    public UnidadeController(UnidadeService unidadeService, ViaCepClient viaCepClient) {
+        this.unidadeService = unidadeService;
         this.viaCepClient = viaCepClient;
     }
 
-    @GetMapping("/{cep}")
+    @GetMapping("/cep/{cep}")
     public EnderecoCep getEnderecoByCep(@PathVariable("cep") String cep) {
         return viaCepClient.findEnderecoBy(cep);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UnidadeDto>> readAllUnidades() {
+        List<Unidade> unidades = unidadeService.findAll();
+        return ResponseEntity.ok(new UnidadeDto().convert(unidades));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UnidadeDto> readUnidadeById(@PathVariable("id") Long id) {
+        Unidade unidade = unidadeService.findById(id);
+        return ResponseEntity.ok(new UnidadeDto(unidade));
+    }
+
+    @PostMapping
+    public ResponseEntity<UnidadeDto> createUnidade(@RequestBody UnidadeForm unidadeForm, UriComponentsBuilder uriBuilder) {
+        Unidade unidade = unidadeService.create(unidadeForm);
+        URI uri = uriBuilder.path("/unidade/{id}").buildAndExpand(unidade.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UnidadeDto(unidade));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UnidadeDto> updateUnidade(@PathVariable("id") Long id, @RequestBody UnidadeUpdateForm unidadeUpdateForm) {
+        Unidade unidade = unidadeService.update(id, unidadeUpdateForm);
+        return ResponseEntity.ok(new UnidadeDto(unidade));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUnidadeById(@PathVariable("id") Long id) {
+        unidadeService.delete(id);
     }
 }

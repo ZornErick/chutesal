@@ -1,0 +1,40 @@
+package br.mackenzie.chutesal.domain.unidade;
+
+import br.mackenzie.chutesal.domain.campeonato.Campeonato;
+import br.mackenzie.chutesal.domain.quadra.Quadra;
+import br.mackenzie.chutesal.util.crud.UpdateForm;
+import br.mackenzie.chutesal.util.endereco.Endereco;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class UnidadeUpdateForm implements UpdateForm<Unidade> {
+
+    private String nome;
+    private Integer numero;
+    private Endereco endereco;
+    private List<Long> quadrasId;
+    private List<Long> campeonatosId;
+
+    public Unidade update(Unidade entity, List<Quadra> quadras, List<Campeonato> campeonatos) {
+        entity.setNome(this.nome);
+        entity.setNumero(this.numero);
+        entity.setEndereco(this.endereco);
+        entity.setQuadras(quadras);
+        entity.setCampeonatos(campeonatos);
+
+        return entity;
+    }
+
+    @Override
+    public Unidade update(Unidade entity) {
+        return null;
+    }
+}
