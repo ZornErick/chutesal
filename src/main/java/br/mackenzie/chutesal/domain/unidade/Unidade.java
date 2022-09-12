@@ -19,6 +19,7 @@ import java.util.List;
 public class Unidade {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
     private Integer numero;
@@ -30,7 +31,7 @@ public class Unidade {
     @JsonIgnore
     private List<Quadra> quadras;
 
-    @OneToMany
+    @OneToMany(mappedBy = "unidade")
     private List<Campeonato> campeonatos;
 
     public Unidade(String nome, Integer numero, Endereco endereco, List<Quadra> quadras, List<Campeonato> campeonatos) {

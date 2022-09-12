@@ -26,7 +26,7 @@ public class ExceptionHandler {
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     @org.springframework.web.bind.annotation.ExceptionHandler(NotFoundException.class)
     public NotFoundExceptionDto handle(NotFoundException exception) {
-        return new NotFoundExceptionDto(HttpStatus.NOT_FOUND.value(), exception.getMessage());
+        return new NotFoundExceptionDto(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

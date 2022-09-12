@@ -1,5 +1,6 @@
 package br.mackenzie.chutesal.util.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +13,10 @@ import javax.persistence.*;
 public class Endereco {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String cep;
+    private Integer numero;
     private String logradouro;
     private String bairro;
     private String localidade;

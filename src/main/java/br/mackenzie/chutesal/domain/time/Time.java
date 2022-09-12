@@ -3,6 +3,7 @@ package br.mackenzie.chutesal.domain.time;
 import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +20,14 @@ import java.util.List;
 public class Time {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
 
     @ManyToOne
     private Campeonato campeonato;
 
-    @OneToMany
+    @OneToMany(mappedBy = "time")
     private List<Inscrito> inscritos = new ArrayList<>();
 
     @ManyToMany

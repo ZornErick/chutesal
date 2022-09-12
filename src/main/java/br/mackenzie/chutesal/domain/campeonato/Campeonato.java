@@ -4,6 +4,7 @@ import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.time.Time;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
 import br.mackenzie.chutesal.util.status.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import java.util.List;
 public class Campeonato {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
     private Status status;
@@ -31,9 +33,9 @@ public class Campeonato {
     @ManyToOne
     private Unidade unidade;
 
-    @OneToMany
+    @OneToMany(mappedBy = "campeonato")
     private List<Jogo> jogos = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "campeonato")
     private List<Time> times = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package br.mackenzie.chutesal.domain.jogo;
 import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.quadra.Quadra;
 import br.mackenzie.chutesal.domain.time.Time;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,16 +22,17 @@ import java.util.List;
 public class Jogo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private LocalDate data;
     private LocalDateTime horario;
 
-    @OneToOne
+    @ManyToOne
     private Campeonato campeonato;
 
     @ManyToOne
     private Quadra quadra;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "jogos")
     private List<Time> times = new ArrayList<>(2);
 }

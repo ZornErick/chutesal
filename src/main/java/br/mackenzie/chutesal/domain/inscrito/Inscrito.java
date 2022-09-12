@@ -1,6 +1,7 @@
 package br.mackenzie.chutesal.domain.inscrito;
 
 import br.mackenzie.chutesal.domain.time.Time;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class Inscrito {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
     private String apelido = "";
