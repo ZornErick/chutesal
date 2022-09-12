@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ValidationFormError {
+public class NotFoundExceptionDto {
 
-    private final String campo;
-    private final String erro;
+    private final int status;
+    private final String error;
 }
