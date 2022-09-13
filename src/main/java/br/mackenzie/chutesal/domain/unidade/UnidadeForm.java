@@ -4,6 +4,7 @@ import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.quadra.Quadra;
 import br.mackenzie.chutesal.util.crud.Form;
 import br.mackenzie.chutesal.util.endereco.Endereco;
+import br.mackenzie.chutesal.util.endereco.EnderecoForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +20,12 @@ public class UnidadeForm implements Form<Unidade> {
 
     private String nome;
     private Integer numero;
-    private Endereco endereco;
+    private EnderecoForm endereco;
     private List<Long> quadrasId;
     private List<Long> campeonatosId;
 
-    public Unidade convert(List<Quadra> quadras, List<Campeonato> campeonatos) {
-        return new Unidade(this.nome, this.numero, this.endereco, quadras, campeonatos);
+    public Unidade convert(List<Quadra> quadras, List<Campeonato> campeonatos, Endereco endereco) {
+        return new Unidade(this.nome, this.numero, endereco, quadras, campeonatos);
     }
 
     @Override

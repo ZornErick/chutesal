@@ -1,6 +1,5 @@
 package br.mackenzie.chutesal;
 
-import br.mackenzie.chutesal.domain.usuario.Usuario;
 import br.mackenzie.chutesal.domain.usuario.UsuarioForm;
 import br.mackenzie.chutesal.domain.usuario.service.UsuarioService;
 import org.springframework.boot.CommandLineRunner;

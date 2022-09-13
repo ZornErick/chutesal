@@ -21,4 +21,13 @@ public class Endereco {
     private String bairro;
     private String localidade;
     private String uf;
+
+    public Endereco(String cep, Integer numero, String logradouro, String bairro, String localidade, String uf) {
+        this.cep = cep;
+        this.numero = numero;
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+    }
 }

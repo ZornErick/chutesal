@@ -41,6 +41,12 @@ public class UnidadeController {
         return ResponseEntity.ok(new UnidadeDto(unidade));
     }
 
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<UnidadeDto>> readUnidadeByNome(@PathVariable("nome") String nome) {
+        List<Unidade> unidades = unidadeService.findByNome(nome);
+        return ResponseEntity.ok(new UnidadeDto().convert(unidades));
+    }
+
     @PostMapping
     public ResponseEntity<UnidadeDto> createUnidade(@RequestBody UnidadeForm unidadeForm, UriComponentsBuilder uriBuilder) {
         Unidade unidade = unidadeService.create(unidadeForm);

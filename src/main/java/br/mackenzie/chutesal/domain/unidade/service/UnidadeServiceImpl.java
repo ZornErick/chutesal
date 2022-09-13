@@ -10,6 +10,8 @@ import br.mackenzie.chutesal.domain.unidade.UnidadeRepo;
 import br.mackenzie.chutesal.domain.unidade.UnidadeUpdateForm;
 import br.mackenzie.chutesal.util.crud.Form;
 import br.mackenzie.chutesal.util.crud.UpdateForm;
+import br.mackenzie.chutesal.util.endereco.Endereco;
+import br.mackenzie.chutesal.util.endereco.EnderecoRepo;
 import br.mackenzie.chutesal.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,24 @@ public class UnidadeServiceImpl implements UnidadeService {
     private final UnidadeRepo unidadeRepo;
     private final QuadraRepo quadraRepo;
     private final CampeonatoRepo campeonatoRepo;
+    private final EnderecoRepo enderecoRepo;
 
     @Autowired
-    public UnidadeServiceImpl(UnidadeRepo unidadeRepo, QuadraRepo quadraRepo, CampeonatoRepo campeonatoRepo) {
+    public UnidadeServiceImpl(UnidadeRepo unidadeRepo, QuadraRepo quadraRepo, CampeonatoRepo campeonatoRepo, EnderecoRepo enderecoRepo) {
         this.unidadeRepo = unidadeRepo;
         this.quadraRepo = quadraRepo;
         this.campeonatoRepo = campeonatoRepo;
+        this.enderecoRepo = enderecoRepo;
     }
 
     @Override
     public List<Unidade> findAll() {
         return unidadeRepo.findAll();
+    }
+
+    @Override
+    public List<Unidade> findByNome(String nome) {
+        return unidadeRepo.findAllByNome(nome);
     }
 
     @Override
@@ -54,8 +63,15 @@ public class UnidadeServiceImpl implements UnidadeService {
 
         List<Quadra> quadras = quadraRepo.findAllById(unidadeForm.getQuadrasId());
         List<Campeonato> campeonatos = campeonatoRepo.findAllById(unidadeForm.getCampeonatosId());
+        Optional<Endereco> endereco = enderecoRepo.findByBairroAndLogradouro(unidadeForm.getEndereco().getBairro(),
+                unidadeForm.getEndereco().getLogradouro());
 
-        Unidade unidade = unidadeForm.convert(quadras, campeonatos);
+        if(endereco.isPresent()) {
+            Unidade unidade = unidadeForm.convert(quadras, campeonatos, endereco.get());
+            return unidadeRepo.save(unidade);
+        }
+
+        Unidade unidade = unidadeForm.convert(quadras, campeonatos, enderecoRepo.save(unidadeForm.getEndereco().convert()));
         return unidadeRepo.save(unidade);
     }
 
