@@ -1,17 +1,28 @@
-#GU-Container {
-    display: grid;
-    grid-template-columns: 40% 40%;
+
+#Conteudo {
+    display: flex;
+    align-items: center;
     justify-content: center;
+}
+
+
+#GU-Container {
+    border-radius: 1vw;
+    margin-bottom: 1.5vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     gap: 5vw;
     overflow-y: auto;
     margin-top: 2%;
-    height: 77%;
-    width: 92%;
-    padding: 3vw;    
+    height: 65%;
+    width: 70%;
+    padding: 3vw;
+    background-color: white;    
 }
 
 .Unidade-Container {
-    width: 100%;
+    width: 80%;
     padding: 0 5%;
     display: flex;
     flex-flow: row;
@@ -19,7 +30,7 @@
     justify-content: space-between;
     height: 5vw;
     background-color: white;
-    border: 0.3vw solid black;
+    border-bottom: 0.2vw solid black;
 }
 .Unidade-Container aside{
     display: flex;

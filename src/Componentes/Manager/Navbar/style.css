@@ -2,6 +2,9 @@ a{
     color: black;
 
 }
+#Titulo h1{
+  font-family: 'Qwitcher Grypen', cursive;
+}
 
 #Titulo nav{
     margin-bottom: 1vw;
