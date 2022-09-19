@@ -1,0 +1,30 @@
+a{
+    color: black;
+
+}
+
+#Titulo nav{
+    margin-bottom: 1vw;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #Titulo nav a{
+    width: 50%;
+    font-size: 1.3vw;
+    text-align: left;
+    text-decoration: none;
+  }
+  #Titulo nav a:hover{
+    cursor: pointer;
+    font-weight: bolder;
+    width: 50%;
+    font-size: 1.3vw;
+    text-align: left;
+}
+.active{
+    font-weight: bolder;
+}

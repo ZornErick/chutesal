@@ -1,0 +1,211 @@
+#u-container {
+    align-items: center;
+    overflow-y: auto;
+    margin-top: 1%;
+    height: 88%;
+    width: 92%;
+    padding: 3vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+#u-container section{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 90%;
+}
+#u-container nav{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+input{
+    color: black;    
+    border: none;
+    font-size: 1.1vw;
+    padding: 0.3vw;
+    
+}
+input:focus{
+    outline: 0.3vw solid black;
+    border-radius: 0.4vw;
+}
+#formulario{
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 1vw;
+    border: none;
+}
+.line{
+    margin: 0vw;
+    border: 0vw;
+    width: 90%;
+    height: 0.3vw;
+    border-radius: 100vw;
+    background-color: black;
+    
+}
+#form-title{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 20%;
+    
+}
+#form-nome{
+    display: flex;
+    flex-flow: column;
+    width: 60%;
+    height: 4vw;    
+    font-size: 1.5vw;
+    font-weight: bolder;
+    border: 0.3vw solid black;
+    text-align: center;
+}
+#form-nro{
+    display: flex;
+    flex-flow: column;
+    width: 15%;
+    height: 4vw;    
+    font-size: 1.5vw;
+    font-weight: bolder;
+    border: 0.3vw solid black;
+    text-align: center;
+}
+#formulario h3{
+    width: 90%;
+    margin: none;
+}
+.endereco-sub-container{
+    display: grid;
+    width: 90%;
+    grid-template-columns: 35% 35% 15%;
+    grid-gap: 1%;
+    
+}
+#formulario button{
+    color: white;
+    background-color: black;
+    width: 7vw;
+    height: 3vw;
+    border-radius: 10vw;
+    font-size: 1.5vw;
+    padding: 0vw;
+}
+#formulario button:hover, #back-button:hover, #add-button:hover, #delete-button:hover{
+    cursor: pointer;
+    background-color: rgb(34, 34, 34);
+}
+
+
+
+
+
+
+#back-button{
+    padding: 0vw;
+    border: 0vw;
+    border-radius: 1vw;
+    width: 2.8vw;
+    height: 2.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#back-button img{
+    width: 80%;
+    height: 80%;
+
+}
+#back-button:hover img{
+    filter: invert(1);
+}
+
+
+
+
+
+
+
+#quadras{
+    width: 30%;
+    height: 80%;
+    background-color: white;
+    border-radius: 1vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+}
+#quadras h1{
+    margin: 1vw 0vw 0vw 0vw;
+    height: 10%;
+    font-size: 1.7vw;
+
+}
+#container-quadras{
+    height: 58%;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    
+    padding-top: 5%;
+
+}
+#nova-quadra-form{
+    display: flex;
+    flex-flow: row;
+    width: 90%;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0.5vw;
+    height: 20%;
+    border: 0.2vw solid black;
+}
+#nova-quadra-form div{
+    width: 70%;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    height: 100%;
+    justify-content: space-around
+    
+}
+#nome-quadra{
+    margin-left: 2%;
+    width: 81%;
+}
+#label-quadra{
+    font-size: 1vw;
+    margin-left: 0.3vw;
+    font-weight: bolder;
+    height: 10%;
+}
+
+#add-button{
+    padding: 0vw;
+    border: 0vw;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 1vw;
+    color:white;
+    font-weight: bold;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+}

@@ -1,0 +1,33 @@
+.unit-quadra{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 1vw;
+    border: 0.2vw solid black;
+    border-radius: 0.7vw;
+    height: 15%;
+    
+}
+.unit-quadra input {
+    width: 70%;
+}
+#delete-button{
+    padding: 0vw;
+    border: 0vw;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 0.6vw;
+    color:white;
+    font-weight: bold;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+}
+#delete-button img{
+    height: 60%;
+    width: 60%;
+    filter: invert(1);
+}

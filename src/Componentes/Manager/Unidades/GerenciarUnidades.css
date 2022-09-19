@@ -1,0 +1,74 @@
+#GU-Container {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: center;
+    gap: 5vw;
+    overflow-y: auto;
+    margin-top: 2%;
+    height: 77%;
+    width: 92%;
+    padding: 3vw;    
+}
+
+.Unidade-Container {
+    width: 100%;
+    padding: 0 5%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 5vw;
+    background-color: white;
+    border: 0.3vw solid black;
+}
+.Unidade-Container aside{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    height: 100%;
+}
+.Unidade-Container button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2vw;
+    height: 2vw;
+    background-color: Transparent;
+    border: none;
+}
+.Unidade-Container button img{
+    width: 2vw;
+    height: 2vw;
+}
+.Unidade-Container button:hover img{
+    cursor: pointer;
+    filter: invert(50%);
+}
+.Unidade-Container aside p, h3{
+    font-size: 1.3vw;
+}
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.7vw;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0); 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(29, 29, 29); 
+  }
