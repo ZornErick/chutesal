@@ -35,7 +35,7 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         http.addFilterBefore(new AuthTokenFilter(tokenService, usuarioRepo), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
