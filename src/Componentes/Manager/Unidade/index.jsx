@@ -1,30 +1,44 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./styles.css"
 import { useState } from "react";
 import { useParams } from "react-router-dom"
 import Quadra from "../Quadra";
 import { useNavigate } from 'react-router-dom';
 import Back from '../../../Imagens/back.png';
+import chutelSalApi from "../../../Service/api";
+import InputMask from 'react-input-mask';
 
 
 const Unidade = () =>{
     const { id } = useParams();
 
     const [inputEscondida, setInputEscondida] = useState(false);
+    const [unidade, setUnidade] = useState({endereco:{}});
+    const [quadras, setQuadras] = useState([]);
+
     //variavel que armazena o valor do state : inputEscondida
     // função para mudar o state : setInputEscondida(valor)
 
-    const quadras = [
-        {
-            id: 1,
-            nome: "Quadra 1"
-        },
-        {
-            id: 2,
-            nome: "Quadra 2"
-        },
+    const fetchUnidade = async () => {
+        try{
+            const {data} = await chutelSalApi.get(`/unidade/${id}`)
 
-    ];
+            setUnidade(data);
+
+            setQuadras(data.quadras)
+
+        }
+        catch (e){
+            console.log(e)
+        }
+    }
+
+
+    useEffect(() =>{
+        fetchUnidade()
+    }, [])
+
+
     const navigate = useNavigate();
     function voltarParaGerenciador (){
         navigate(`/unidade`);
@@ -47,24 +61,24 @@ const Unidade = () =>{
             <section>
                 <form id="formulario">
                     <div id="form-title">
-                        <input required="required" name="Nome" id="form-nome"  placeholder="Nome"               defaultValue="Francisco Morato" />
-                        <input required="required" name="numero" id="form-nro"  placeholder="Número"            defaultValue="72" />
+                        <input required="required" name="Nome" id="form-nome"  placeholder="Nome" defaultValue={ unidade.nome} />
+                        <input required="required" name="numero" id="form-nro"  placeholder="Número" defaultValue={ unidade.numero} />
                     </div>
                     <h3>Endereço</h3>
                     <hr className='line'/>
                     <div className="endereco-sub-container">
-                        <input required="required" name="cep"  placeholder="CEP" id="form-cep" label=""                     defaultValue="07845-000"/>
+                        <InputMask id="form-cep" name="cep" mask="99999-999" value={unidade.endereco.cep} required="required" placeholder="CEP"></InputMask>
                     </div>
                     
                     <div className="endereco-sub-container">
-                        <input required="required" name="rua"  placeholder="Rua" id="form-rua"                          defaultValue="Avenida Lins"/>
-                        <input required="required" name="nro"  placeholder="Nº" id="form-numero"                           defaultValue="359"/>
+                        <input required="required" name="rua"  placeholder="Rua" id="form-rua"                          defaultValue={unidade.endereco.logradouro}/>
+                        <input required="required" name="nro"  placeholder="Nº" id="form-numero"                           defaultValue={unidade.endereco.numero}/>
                     </div>
                 
                     <div className="endereco-sub-container">
-                        <input required="required" name="bairro"  placeholder="Bairro" id="form-bairro"                 defaultValue="Vila Suíça"/>
-                        <input required="required" name="cidade"  placeholder="Cidade" id="form-cidade"                 defaultValue="Francisco Morato"/>
-                        <input required="required" name="uf"  placeholder="Estado" id="form-uf"                         defaultValue="SP"/>
+                        <input required="required" name="bairro"  placeholder="Bairro" id="form-bairro"                 defaultValue={unidade.endereco.bairro}/>
+                        <input required="required" name="cidade"  placeholder="Cidade" id="form-cidade"                 defaultValue={unidade.endereco.localidade}/>
+                        <input required="required" name="uf"  placeholder="Estado" id="form-uf"                         defaultValue={unidade.endereco.uf}/>
                     </div>
                     <hr className='line'/>
                     <button onClick={editarUnidade} type="submit">Salvar</button>
