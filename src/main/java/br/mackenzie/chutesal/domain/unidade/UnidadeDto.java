@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Getter
 public class UnidadeDto {
 
+    private Long id;
     private String nome;
     private Integer numero;
     private Endereco endereco;
@@ -20,6 +21,7 @@ public class UnidadeDto {
     private List<Campeonato> campeonatos;
 
     public UnidadeDto(Unidade unidade) {
+        this.id = unidade.getId();
         this.nome = unidade.getNome();
         this.numero = unidade.getNumero();
         this.endereco = unidade.getEndereco();

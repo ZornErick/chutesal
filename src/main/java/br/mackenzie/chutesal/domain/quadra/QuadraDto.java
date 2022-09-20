@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
 @Getter
 public class QuadraDto {
 
+    private Long id;
     private String nome;
     private Unidade unidade;
     private List<Jogo> jogos;
 
     public QuadraDto(Quadra quadra) {
+        this.id = quadra.getId();
         this.nome = quadra.getNome();
         this.unidade = quadra.getUnidade();
         this.jogos = quadra.getJogos();
