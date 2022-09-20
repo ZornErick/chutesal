@@ -1,6 +1,7 @@
 import React from 'react';
 import './GerenciarUnidades.css';
 import View from '../../../Imagens/eye.png'
+import Delete from '../../../Imagens/delete.png';
 import { useNavigate } from 'react-router-dom';
 
 function GerenciarUnidades() {
@@ -21,13 +22,23 @@ function GerenciarUnidades() {
       id: 3,
       nome: "Unidade terciaria",
       numero: 9
+    },
+    {
+      id: 4,
+      nome: "Unidade quartenária",
+      numero: 9
+    },
+    {
+      id: 5,
+      nome: "Unidade dos esquecidos",
+      numero: 9
     }
   ];
 
 
 
   return (
-    <section id='GU-Container'>
+    <div id='GU-Container'>
       {unidades.map((unidade) => {
 
         return <UnidadeContent
@@ -38,7 +49,7 @@ function GerenciarUnidades() {
         />
 
       })}
-    </section>
+    </div>
   );
 }
  
@@ -49,14 +60,18 @@ function UnidadeContent({id, nome, numero}) {
   function visualizarUnidade (){
     navigate(`${id}`);
   }
+  function removerUnidade (){
+
+  }
 
   return(
-    <div className='Unidade-Container'>
-      <button onClick={visualizarUnidade}  ><img src={View}/></button>
+    <div className='Unidade-Container'>      
       <aside>
         <h3>{nome}</h3> 
         <p>Nº{`${numero}`}</p>
-      </aside> 
+      </aside>
+      <button onClick={visualizarUnidade}  ><img src={View}/></button>
+      <button onClick={removerUnidade}  ><img src={Delete}/></button>
     </div>
   )
 }
