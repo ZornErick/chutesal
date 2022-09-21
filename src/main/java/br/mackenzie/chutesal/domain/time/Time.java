@@ -27,7 +27,7 @@ public class Time {
     @ManyToOne
     private Campeonato campeonato;
 
-    @OneToMany(mappedBy = "time")
+    @OneToMany(mappedBy = "time", cascade = CascadeType.ALL)
     private List<Inscrito> inscritos = new ArrayList<>();
 
     @ManyToMany

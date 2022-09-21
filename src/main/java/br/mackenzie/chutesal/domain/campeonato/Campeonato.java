@@ -33,9 +33,9 @@ public class Campeonato {
     @ManyToOne
     private Unidade unidade;
 
-    @OneToMany(mappedBy = "campeonato")
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
     private List<Jogo> jogos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "campeonato")
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
     private List<Time> times = new ArrayList<>();
 }

@@ -26,7 +26,7 @@ public class Quadra {
     @JsonIgnore
     private Unidade unidade;
 
-    @OneToMany(mappedBy = "quadra")
+    @OneToMany(mappedBy = "quadra", cascade = CascadeType.ALL)
     private List<Jogo> jogos = new ArrayList<>();
 
     public Quadra(String nome, Unidade unidade, List<Jogo> jogos) {
