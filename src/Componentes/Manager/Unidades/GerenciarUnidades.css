@@ -44,8 +44,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2vw;
-    height: 2vw;
+    width: 4vw;
+    height: 4vw;
+    padding: 0.5rem;
+    border-radius: 10%;
     background-color: Transparent;
     border: none;
 }
@@ -59,6 +61,23 @@
 }
 .Unidade-Container aside p, h3{
     font-size: 1.3vw;
+}
+
+@keyframes changeDeleteButton {
+    50%,100%{
+        transform:rotate(360deg);
+        filter: invert(100%) ;
+    }
+}
+
+#deleting{
+    background-color: #E51C1C;
+   
+}
+
+#deleting img{
+    animation: changeDeleteButton 0.5s forwards 0.5ms ;
+    transition: 0.5
 }
 
 

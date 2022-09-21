@@ -3,38 +3,36 @@ import './GerenciarUnidades.css';
 import View from '../../../Imagens/eye.png'
 import Delete from '../../../Imagens/delete.png';
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import chutelSalApi from '../../../Service/api.js'
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 function GerenciarUnidades() {
-
+  const [unidades, setUnidades] = useState([])
   
-  const unidades = [
-    {
-      id: 1,
-      nome: "Unidade inicial",
-      numero: 1
-    },
-    {
-      id: 2,
-      nome: "Unidade secundária",
-      numero: 5
-    },
-    {
-      id: 3,
-      nome: "Unidade terciaria",
-      numero: 9
-    },
-    {
-      id: 4,
-      nome: "Unidade quartenária",
-      numero: 9
-    },
-    {
-      id: 5,
-      nome: "Unidade dos esquecidos",
-      numero: 9
-    }
-  ];
+  const fetchUnidades = async () => {
+    try{
+      setUnidades(() => [{id:1,nome:"a"}])
 
+      const { data } = await chutelSalApi.get('/unidade');
+      setUnidades(data)
+
+    }catch(e){
+      throw e;
+    }
+  }
+
+  useEffect(() => {
+    toast.promise(
+      fetchUnidades,
+      {
+        pending: 'Buscando unidades...',
+        success: 'Unidades encontradas',
+        error: 'Erro ao buscar unidades'
+      }
+    )
+    
+  }, [])
 
 
   return (
@@ -54,24 +52,41 @@ function GerenciarUnidades() {
 }
  
 function UnidadeContent({id, nome, numero}) {
-
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const navigate = useNavigate();
 
   function visualizarUnidade (){
     navigate(`${id}`);
   }
-  function removerUnidade (){
 
+  async function removerUnidade (){
+    try{
+      setConfirmDelete(false);
+      const { data } = await chutelSalApi.delete(`/unidade/${id}`);
+
+    }catch(e){
+
+    }finally{
+      setConfirmDelete(false)
+    }
+    
   }
 
   return(
-    <div className='Unidade-Container'>      
+    <div className={`Unidade-Container`}>      
       <aside>
         <h3>{nome}</h3> 
         <p>Nº{`${numero}`}</p>
       </aside>
       <button onClick={visualizarUnidade}  ><img src={View}/></button>
-      <button onClick={removerUnidade}  ><img src={Delete}/></button>
+      <button id={confirmDelete && "deleting"}  onClick={() => {
+        if(!confirmDelete){
+          setConfirmDelete(true);
+          return;
+        }
+        removerUnidade()
+      }}  ><img  src={Delete}/></button>
     </div>
   )
 }
