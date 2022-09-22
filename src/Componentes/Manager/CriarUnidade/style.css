@@ -94,6 +94,7 @@ input:focus{
     border-radius: 10vw;
     font-size: 1.5vw;
     padding: 0vw;
+    cursor: pointer;
 }
 #formulario button2:hover, #back-button2:hover, #add-button2:hover, #delete-button2:hover{
     cursor: pointer;
