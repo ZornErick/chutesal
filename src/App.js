@@ -8,6 +8,7 @@
   import CriarUnidade from './Componentes/Manager/CriarUnidade';
   import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import CriarCampeonato from './Componentes/Manager/CriarCampeonato';
 
 
   function App() {
@@ -23,7 +24,7 @@
             <Route path='unidade/:id' element={<Unidade/>} />
 
             <Route path='campeonato' element={<h1>Campeonato</h1>} />
-            <Route path='criar-campeonato' element={<h1>Criar Campeonato</h1>} />
+            <Route path='criar-campeonato' element={<CriarCampeonato/>} />
             <Route path='criar-unidade' element={<CriarUnidade/>} />
           </Route>
         </Routes>

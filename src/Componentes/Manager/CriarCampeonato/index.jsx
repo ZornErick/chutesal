@@ -1,19 +1,17 @@
+import { DatePicker, Form, Input, Card, Grid } from "antd"
+import chutelSalApi from "../../../Service/api";
 import React from 'react';
-import './GerenciarUnidades.css';
 import View from '../../../Imagens/eye.png'
 import Delete from '../../../Imagens/delete.png';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import chutelSalApi from '../../../Service/api.js'
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Oval, TailSpin} from 'react-loader-spinner'
-
-
-
-function GerenciarUnidades() {
-  const navigate = useNavigate();
-  const [unidades, setUnidades] = useState([])
+import { TailSpin, Oval } from "react-loader-spinner";
+import './index.css'
+const Lista = () => {
+const navigate = useNavigate();
+  const [unidades, setUnidades] = useState(Array.from(Array(10).keys()).map(k => {}))
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   
@@ -67,11 +65,11 @@ function GerenciarUnidades() {
         :
         (
         unidades.length > 0 ?
-          (<div id='GU-Container'>
-
+          (<div id="grid-unidades">
             {
               unidades.map((unidade) => {
                 return <UnidadeContent
+                    loading={loading}
                     refetch={fetchUnidades}
                     key={unidade.id}
                     nome={unidade.nome}
@@ -96,7 +94,7 @@ function GerenciarUnidades() {
   );
 }
  
-function UnidadeContent({id, nome, numero, refetch}) {
+function UnidadeContent({id, nome, numero, refetch, loading}) {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [deleted, setDeleted] = useState(false)
@@ -129,35 +127,69 @@ function UnidadeContent({id, nome, numero, refetch}) {
   )
 
   return(
-    <div className={`Unidade-Container ${deleted && "deleted"}`}>      
+    <Card 
+        className="card-unidade"
+         size="small" 
+         hoverable
+          loading={loading}
+          actions={
+            [
+                <button  onClick={visualizarUnidade}  >
+                    <img className="icon" src={View}/>
+                </button>,
+                <button 
+                    id={confirmDelete && "deleting"}
+                    disabled={deleting}
+                    onClick={() => {
+                        if(!confirmDelete){
+                        setConfirmDelete(true);
+                        return;
+                        }
+                        removerUnidade()
+                    }}  
+                >
+                    {
+                         deleting ?
+                         <Oval
+                           color='#fff'
+                           height={30}
+                           width={30}
+                         /> : 
+                         <img className="icon" src={Delete}/>
+
+                    }
+                </button>,
+
+            ]
+          }
+    >      
       <aside>
         <h3>{nome}</h3> 
         <p>Nº{`${numero}`}</p>
       </aside>
-      <button  onClick={visualizarUnidade}  >
-          <img src={View}/>
-      </button>
-      <button id={confirmDelete && "deleting"} disabled={deleting} onClick={() => {
-        if(!confirmDelete){
-          setConfirmDelete(true);
-          return;
-        }
-        removerUnidade()
-      }}  >
+      
 
-        {
-          deleting ?
-          <Oval
-            color='#fff'
-            height={30}
-            width={30}
-          /> :
-          <img src={Delete}/>
-        }
-        
-        </button>
-    </div>
+       
+    </Card>
   )
 }
 
-export default GerenciarUnidades;
+
+
+// export default () => {
+
+
+
+    
+//         // <Card cover={true}>
+//         //     <Form>
+//         //         <Input placeholder="Nome" />
+//         //         <DatePicker allowClear format="DD/MM/yyyy"/>
+//         //         <Input placeholder="X"/>
+//         //     </Form>
+//         // </Card>
+
+
+// }
+
+export default Lista
