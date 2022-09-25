@@ -82,9 +82,14 @@ public class UnidadeServiceImpl implements UnidadeService {
         Optional<Unidade> unidade = unidadeRepo.findById(id);
         List<Quadra> quadras = quadraRepo.findAllById(unidadeUpdateForm.getQuadrasId());
         List<Campeonato> campeonatos = campeonatoRepo.findAllById(unidadeUpdateForm.getCampeonatosId());
+        Optional<Endereco> endereco = enderecoRepo.findByBairroAndLogradouro(unidadeUpdateForm.getEndereco().getBairro(),
+                unidadeUpdateForm.getEndereco().getLogradouro());
 
         if(unidade.isPresent()) {
-            return unidadeUpdateForm.update(unidade.get(), quadras, campeonatos);
+            if(endereco.isPresent()) {
+                return unidadeUpdateForm.update(unidade.get(), quadras, campeonatos, endereco.get());
+            }
+            return unidadeUpdateForm.update(unidade.get(), quadras, campeonatos, enderecoRepo.save(unidadeUpdateForm.getEndereco()));
         } else {
             throw new NotFoundException("Unidade " + id + " não encontrada!");
         }
