@@ -1,11 +1,22 @@
 import React from 'react';
 import "./styles.css";
 import Delete from '../../../Imagens/delete.png';
+import { toast } from 'react-toastify';
+import chutelSalApi from '../../../Service/api';
 
 
-const Quadra = ({id, nome}) =>{
-    function excluirQuadra (){
-        
+const Quadra = ({id, nome, reFetch}) =>{
+    async function excluirQuadra (){
+        try{
+            const response = await chutelSalApi.delete(`quadra/${id}`)
+
+            if(response.status === 200){
+                toast.success('Quadra excluida')
+                reFetch()
+            }
+        }catch(e){
+            toast.error('Erro ao excluir quadra');
+        }
     }
     return(
         
