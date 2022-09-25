@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -34,14 +35,14 @@ public class QuadraController {
     }
 
     @PostMapping
-    public ResponseEntity<QuadraDto> createQuadra(@RequestBody QuadraForm quadraForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<QuadraDto> createQuadra(@RequestBody @Valid QuadraForm quadraForm, UriComponentsBuilder uriBuilder) {
         Quadra quadra = quadraService.create(quadraForm);
         URI uri = uriBuilder.path("/quadra/{id}").buildAndExpand(quadra.getId()).toUri();
         return ResponseEntity.created(uri).body(new QuadraDto(quadra));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<QuadraDto> updateQuadra(@PathVariable("id") Long id, @RequestBody QuadraUpdateForm quadraUpdateForm) {
+    public ResponseEntity<QuadraDto> updateQuadra(@PathVariable("id") Long id, @RequestBody @Valid QuadraUpdateForm quadraUpdateForm) {
         Quadra quadra = quadraService.update(id, quadraUpdateForm);
         return ResponseEntity.ok(new QuadraDto(quadra));
     }

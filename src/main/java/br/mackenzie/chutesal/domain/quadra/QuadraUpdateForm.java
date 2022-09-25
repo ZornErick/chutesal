@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @NoArgsConstructor
@@ -16,7 +18,9 @@ import java.util.List;
 @Setter
 public class QuadraUpdateForm implements UpdateForm<Quadra> {
 
+    @NotBlank
     private String nome;
+    @NotNull
     private Long unidadeId;
     private List<Long> jogosId;
 

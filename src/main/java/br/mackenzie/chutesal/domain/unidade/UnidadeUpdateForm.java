@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,16 +19,19 @@ import java.util.List;
 @Setter
 public class UnidadeUpdateForm implements UpdateForm<Unidade> {
 
+    @NotBlank
     private String nome;
+    @NotNull
     private Integer numero;
+    @NotNull
     private Endereco endereco;
     private List<Long> quadrasId;
     private List<Long> campeonatosId;
 
-    public Unidade update(Unidade entity, List<Quadra> quadras, List<Campeonato> campeonatos) {
+    public Unidade update(Unidade entity, List<Quadra> quadras, List<Campeonato> campeonatos, Endereco endereco) {
         entity.setNome(this.nome);
         entity.setNumero(this.numero);
-        entity.setEndereco(this.endereco);
+        entity.setEndereco(endereco);
         entity.setQuadras(quadras);
         entity.setCampeonatos(campeonatos);
 
