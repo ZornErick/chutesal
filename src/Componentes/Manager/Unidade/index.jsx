@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Back from '../../../Imagens/back.png';
 import chutelSalApi from "../../../Service/api";
 import InputMask from 'react-input-mask';
+import { toast } from 'react-toastify';
 
 
 const Unidade = () =>{
@@ -14,6 +15,9 @@ const Unidade = () =>{
 
     const [inputEscondida, setInputEscondida] = useState(false);
     const [unidade, setUnidade] = useState({endereco:{}});
+    const [endereco, setEndereco] = useState({});
+    const [nome, setNome] = useState('');
+    const [numero, setNumero] = useState('');
     const [quadras, setQuadras] = useState([]);
 
     //variavel que armazena o valor do state : inputEscondida
@@ -40,16 +44,44 @@ const Unidade = () =>{
 
 
     const navigate = useNavigate();
+
     function voltarParaGerenciador (){
         navigate(`/unidade`);
     }
-    function editarUnidade (){
-        
+    async function editarUnidade (e){
+        e.preventDefault();
+        try{
+            const response = await chutelSalApi.put(`unidade/${id}`,{
+                id: id,
+                nome: nome || unidade?.nome,
+                numero: numero || unidade?.numero,
+                endereco:{
+                    cep: endereco?.cep,
+                    numero: endereco?.nro,
+                    logradouro: endereco?.rua,
+                    bairro: endereco?.bairro,
+                    localidade: endereco?.cidade,
+                    uf: endereco?.uf
+                },
+                quadrasId: []
+            });
+
+            if(response.status === 200){
+                toast.success('Unidade atualizada com sucesso!')
+            }
+
+        }catch(e){
+            toast.error('Erro ao editar unidade')
+        }
     }
     function novaQuadra (){
         
     }
 
+    const cepHandler = async () =>{
+
+    }
+    
     return (
 
 
@@ -61,13 +93,13 @@ const Unidade = () =>{
             <section>
                 <form id="formulario">
                     <div id="form-title">
-                        <input required="required" name="Nome" id="form-nome"  placeholder="Nome" defaultValue={ unidade.nome} />
+                        <input required="required" name="nome" id="form-nome"  placeholder="Nome" defaultValue={ unidade.nome} />
                         <input required="required" name="numero" id="form-nro"  placeholder="Número" defaultValue={ unidade.numero} />
                     </div>
                     <h3>Endereço</h3>
                     <hr className='line'/>
                     <div className="endereco-sub-container">
-                        <InputMask id="form-cep" name="cep" mask="99999-999" value={unidade.endereco.cep} required="required" placeholder="CEP"></InputMask>
+                        <InputMask id="form-cep" name="cep" mask="99999-999" value={unidade?.endereco?.cep} required="required" placeholder="CEP"></InputMask>
                     </div>
                     
                     <div className="endereco-sub-container">
