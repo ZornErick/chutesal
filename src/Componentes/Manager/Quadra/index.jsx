@@ -9,7 +9,6 @@ const Quadra = ({id, nome, reFetch}) =>{
     async function excluirQuadra (){
         try{
             const response = await chutelSalApi.delete(`quadra/${id}`)
-
             if(response.status === 200){
                 toast.success('Quadra excluida')
                 reFetch()
@@ -21,7 +20,7 @@ const Quadra = ({id, nome, reFetch}) =>{
     return(
         
         <div className="unit-quadra">
-            <input required="required"  name="quadra"  placeholder="Nome" defaultValue={nome}/>
+            <input required="required"  name="quadra"  placeholder="Nome" value={`${id} - ${nome}`}/>
             <button onClick={excluirQuadra} id="delete-button" type="submit"><img src={Delete}/></button>
             
         </div>
