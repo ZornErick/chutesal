@@ -20,9 +20,8 @@ const Quadra = ({id, nome, reFetch}) =>{
     return(
         
         <div className="unit-quadra">
-            <input required="required"  name="quadra"  placeholder="Nome" value={`${id} - ${nome}`}/>
-            <button onClick={excluirQuadra} id="delete-button" type="submit"><img src={Delete}/></button>
-            
+            <input required="required"  name="quadra"  placeholder="Nome" value={`${nome}`}/>
+            <button onClick={excluirQuadra} id="delete-button" type="submit"><img src={Delete}/></button>            
         </div>
     )
 }
