@@ -19,6 +19,7 @@ import java.util.List;
 public class Quadra {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
 
@@ -27,6 +28,7 @@ public class Quadra {
     private Unidade unidade;
 
     @OneToMany(mappedBy = "quadra", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Jogo> jogos = new ArrayList<>();
 
     public Quadra(String nome, Unidade unidade, List<Jogo> jogos) {
