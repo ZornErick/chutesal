@@ -31,6 +31,7 @@ public class Unidade {
     private List<Quadra> quadras;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Campeonato> campeonatos;
 
     public Unidade(String nome, Integer numero, Endereco endereco, List<Quadra> quadras, List<Campeonato> campeonatos) {

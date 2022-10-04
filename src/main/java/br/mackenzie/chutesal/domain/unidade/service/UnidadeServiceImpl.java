@@ -52,9 +52,8 @@ public class UnidadeServiceImpl implements UnidadeService {
         Optional<Unidade> unidade = unidadeRepo.findById(id);
         if(unidade.isPresent()) {
             return unidade.get();
-        } else {
-            throw new NotFoundException("Unidade " + id + " não encontrada!");
         }
+        throw new NotFoundException("Unidade " + id + " não encontrada!");
     }
 
     @Override
