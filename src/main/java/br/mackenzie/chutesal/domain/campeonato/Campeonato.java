@@ -25,17 +25,36 @@ public class Campeonato {
     @JsonIgnore
     private Long id;
     private String nome;
-    private Status status;
-    private LocalDate periodoInscricao;
-    private LocalDate periodoJogos;
+    private Status status = Status.PLANEJADO;
+    private LocalDate dataInicialInscricao;
+    private LocalDate dataFinalInscricao;
+    private LocalDate dataInicialJogos;
+    private LocalDate dataFinalJogos;
     private LocalDate inicioDivulgacao;
 
     @ManyToOne
+    @JsonIgnore
     private Unidade unidade;
 
     @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Jogo> jogos = new ArrayList<>();
 
     @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Time> times = new ArrayList<>();
+
+    public Campeonato(String nome,
+                      LocalDate dataInicialInscricao, LocalDate dataFinalInscricao, LocalDate dataInicialJogos, LocalDate dataFinalJogos, LocalDate inicioDivulgacao,
+                      Unidade unidade, List<Jogo> jogos, List<Time> times) {
+        this.nome = nome;
+        this.dataInicialInscricao = dataInicialInscricao;
+        this.dataFinalInscricao = dataFinalInscricao;
+        this.dataInicialJogos = dataInicialJogos;
+        this.dataFinalJogos = dataFinalJogos;
+        this.inicioDivulgacao = inicioDivulgacao;
+        this.unidade = unidade;
+        this.jogos = jogos;
+        this.times = times;
+    }
 }
