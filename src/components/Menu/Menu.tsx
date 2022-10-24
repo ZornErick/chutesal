@@ -19,7 +19,7 @@ export function Menu() {
 
     return (
         <nav className={"flex bg-gray-700 w-full h-14 items-center justify-between"}>
-            <NavLink to={"/"}><Logo className={"ml-6"} /></NavLink>
+            <NavLink to={"/"}><Logo className={"ml-6 hover:stroke-green-500"} /></NavLink>
             <ul className={"flex h-full"}>
                 {routes.map((route, index) => (
                     <li key={index} className={"flex flex-col h-full items-center justify-between"}>
