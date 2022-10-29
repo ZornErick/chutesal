@@ -3,7 +3,17 @@ import Input from "../../Input/Input";
 import Select from "../../Select/Select";
 
 export function CampeonatoUpdateForm() {
+    const status = [
+        {
+            id: 1,
+            nome:"Planejado"
+        },
+        {
+            id: 2,
+            nome:"Em andamento"
+        },
 
+    ]
     const unidades = [
         {
             id: 1,
@@ -24,7 +34,7 @@ export function CampeonatoUpdateForm() {
     return (
         <div className="w-4/5 h-full">
            <Formik
-                initialValues={{nomeCampeonato: ''}}
+                initialValues={{nomeCampeonato: '', codigoUnidade: '', statusCampeonato: ''}}
                 onSubmit={(values, actions) => {
                 console.log({ values, actions });
                 alert(JSON.stringify(values, null, 2));
@@ -48,11 +58,11 @@ export function CampeonatoUpdateForm() {
                             options={unidades.map(({id,nome}) => ({value: id, label: nome}))}
                         />
                         <Select
-                            id="nome"
-                            name="nomeCampeonato"
-                            label="Nome do Campeonato"
-                            placeholder="Nome do Campeonato"
-                            options={[]}
+                            id="statusCampeonato"
+                            name="statusCampeonato"
+                            label="Status"
+                            placeholder="Status do campeonato"
+                            options={status.map(({id,nome})=>({value: id, label: nome}))}
                         />
 
                     </div>

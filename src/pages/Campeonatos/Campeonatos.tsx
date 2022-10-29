@@ -13,7 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import { Thrash } from '../../assets/Icons/Thrash/Thrash' 
 import { useNavigate } from "react-router-dom";
 
-type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
+export type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
 
 interface IUnidade {
     id: number;
