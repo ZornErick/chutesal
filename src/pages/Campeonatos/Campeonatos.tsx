@@ -12,19 +12,28 @@ import DeleteModalContent from "../../components/ModalContent/ModalContent";
 import Modal from "../../components/Modal/Modal";
 import { Thrash } from '../../assets/Icons/Thrash/Thrash' 
 
+type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
 
+interface IUnidade {
+    id: number;
+    nome: string;
+}
 
 interface ICampeonato {
     id: number;
+    nome: string;
     dataInicialJogos : string;
     dataFinalJogos: string;
     dataInicialInscricao: string;
     dataFinalInscricao: string;
+    status: StatusCampeonato;
+    unidade: IUnidade
 }
 
 interface IData {
+    id: number;
     nome: string;
-    status: string;
+    status: StatusCampeonato;
     unidade: string;
     inscricoes: string;
     duracao: string;
@@ -32,13 +41,22 @@ interface IData {
 
 export function Campeonatos() {
     const [campeonatos, setCampeonatos] = useState<IData[]>([]);
-    const [toDelete, setToDelete] = useState<number | null>(1);
+    const [toDelete, setToDelete] = useState<number | null>(null);
 
     const deleteCampeonato = async (id : any) => {
         try{
+            const { status, data } = await apiInstance.delete(`/campeonato/${id}`)
 
+            if(status === 200){
+                toast.success(`Campeonato apagado com sucesso`)
+                fetchData()
+            }
         }catch(e){
-            
+            console.log(e);            
+            toast.error(`Não foi possível apagar o campeonato`)
+        }
+        finally{
+            setToDelete(null);
         }
         
     }
@@ -48,8 +66,24 @@ export function Campeonatos() {
             const { data } = await apiInstance.get<ICampeonato[]>(`/campeonato`);
             console.log({data});
             
-            const formattedData : IData[] = data?.map(({}) =>{
-                return {} as IData;
+            const formattedData : IData[] = data?.map(({
+                id,
+                nome,
+                dataInicialInscricao,
+                dataFinalInscricao,
+                dataInicialJogos,
+                dataFinalJogos,
+                status,
+                unidade: { nome : unidade }
+            }) =>{
+                return ({
+                    id,
+                    nome,
+                    status,
+                    unidade,
+                    inscricoes: `${dataInicialInscricao?.replace("-","/")} - ${dataFinalInscricao?.replace("-","/")}`,
+                    duracao: `${dataInicialJogos?.replace("-","/")} - ${dataFinalJogos?.replace("-","/")}`,
+                }) as IData;
             }); 
 
             setCampeonatos(formattedData);

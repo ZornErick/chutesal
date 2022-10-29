@@ -8,7 +8,8 @@ import Table, { IColumnOption } from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
-
+import Modal from "../../components/Modal/Modal";
+import { Thrash } from "../../assets/Icons/Thrash/Thrash"
 interface IEndereco {
 
     cep: string;
@@ -19,34 +20,65 @@ interface IEndereco {
     uf: string;
 }
 
-interface IData {
+interface IUnidade {
     id: number;
     numero: number;
     nome: string;
     endereco: IEndereco;
+    quadras: any[]
     
+}
+
+interface IData {
+    id: number;
+    numero: number;
+    nome: string;
+    endereco: string;
 }
 
 
 export function Unidades() {
     const [unidades, setUnidades] = useState<IData[]>([]);
-    const [toDelete, setToDelete] = useState<number | null>(1);
+    const [toDelete, setToDelete] = useState<number | null>(null);
 
 
     const deleteUnidade = async (id : any) => {
         try{
-            
+            const { status, data } = await apiInstance.delete(`/unidade/${id}`)
+
+            if(status === 200){
+                toast.success(`Unidade apagado com sucesso`)
+                fetchData()
+            }
         }catch(e){
-            
+            console.log(e);            
+            toast.error(`Não foi possível apagar a unidade`)
+        }
+        finally{
+            setToDelete(null);
         }
         
     }
 
     const fetchData = async () => {
         try{
-            const { data } = await apiInstance.get(`/unidade`);
-
-            setUnidades(data);
+            const { data } = await apiInstance.get<IUnidade[]>(`/unidade`);
+            console.log({data});
+            
+            const formattedData = data?.map(({
+                id,
+                endereco: {logradouro : endereco},
+                nome,
+                numero                
+            }) =>{
+                return {
+                    id,
+                    nome,
+                    numero,
+                    endereco
+                } as IData
+            });
+            setUnidades(formattedData);
         }catch(e){
             toast.error(`Não foi possível buscar as unidades`)
         }
@@ -72,7 +104,9 @@ export function Unidades() {
         {
             displayName: "Opções",
             id: "opcoes",
-            transformCell: () => <Options  editCallback={() => {}} deleteCallback={() => {}}/>
+            type: "action",
+            valueKey: "id",
+            transformCell: (id) => <Options  editCallback={() => {}} deleteCallback={() => setToDelete(id)}/>
         },     
     ];
 
@@ -83,6 +117,15 @@ export function Unidades() {
         fetchData()
     },[]);
     return (
+        <>
+        <Modal
+        
+            open={toDelete !== null}
+            Icon={Thrash}
+            modalText="Deseja apagar o campeonato?"
+            confirmAction={() => deleteUnidade(toDelete)}
+            cancelAction={() => setToDelete(null)}
+        />
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>
             <div className={"flex w-full justify-between"}>
                 <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
@@ -96,5 +139,7 @@ export function Unidades() {
                 data={unidades}
             />
         </main>
+        </>
+       
     );
 }
