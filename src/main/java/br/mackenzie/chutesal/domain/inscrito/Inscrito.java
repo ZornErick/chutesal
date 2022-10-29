@@ -24,4 +24,11 @@ public class Inscrito {
 
     @ManyToOne
     private Time time;
+
+    public Inscrito(String nome, String apelido, String whatsapp, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.apelido = apelido;
+        this.whatsapp = whatsapp;
+        this.dataNascimento = dataNascimento;
+    }
 }
