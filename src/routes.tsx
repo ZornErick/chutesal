@@ -20,9 +20,10 @@ export function AppRouter() {
                     <Menu />
                     <Routes>
                         <Route path={"/campeonatos"} element={<Campeonatos />} />
+                        <Route path={"/campeonatos/:id"} element={<GerenciarCampeonato />}/>
+
                         <Route path={"/unidades"} element={<Unidades />} />
 
-                        <Route path={"/gerenciar/campeonato"} element={<GerenciarCampeonato />} />
                     </Routes>
                     <Footer />
                 </Router>

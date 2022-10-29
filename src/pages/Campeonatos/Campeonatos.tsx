@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import DeleteModalContent from "../../components/ModalContent/ModalContent";
 import Modal from "../../components/Modal/Modal";
 import { Thrash } from '../../assets/Icons/Thrash/Thrash' 
+import { useNavigate } from "react-router-dom";
 
 type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
 
@@ -42,11 +43,11 @@ interface IData {
 export function Campeonatos() {
     const [campeonatos, setCampeonatos] = useState<IData[]>([]);
     const [toDelete, setToDelete] = useState<number | null>(null);
-
+    const navigate = useNavigate();
     const deleteCampeonato = async (id : any) => {
         try{
             const { status, data } = await apiInstance.delete(`/campeonato/${id}`)
-
+ 
             if(status === 200){
                 toast.success(`Campeonato apagado com sucesso`)
                 fetchData()
@@ -126,7 +127,7 @@ export function Campeonatos() {
             type: "action",
             valueKey: "id",
             transformCell: (id) => (<Options 
-                editCallback={() => {}} 
+                editCallback={() => navigate(`${id}`)} 
                 deleteCallback={() => setToDelete(id)}
             />),
             id: "opcoes",

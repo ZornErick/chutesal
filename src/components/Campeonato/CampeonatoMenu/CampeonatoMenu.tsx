@@ -7,41 +7,36 @@ import {TimeNavIcon} from "../../../assets/Icons/TimeNavIcon/TimeNavIcon";
 import {VencedorNavIcon} from "../../../assets/Icons/VencedorNavIcon/VencedorNavIcon";
 import {Thrash} from "../../../assets/Icons/Thrash/Thrash";
 import {Save} from "../../../assets/Icons/Save/Save";
+import { IMenuElement } from "../../../pages/GerenciarCampeonato/GerenciarCampeonato";
 
-export function CampeonatoMenu() {
-    const menuOptions = [
-        {
-            label: "Campeonato",
-            icon: <CampeonatoNavIcon />
-        },
-        {
-            label: "Jogos",
-            icon: <JogoNavIcon />
-        },
-        {
-            label: "Inscritos",
-            icon: <InscritoNavIcon />
-        },
-        {
-            label: "Times",
-            icon: <TimeNavIcon />
-        },
-        {
-            label: "Vencedores",
-            icon: <VencedorNavIcon />
-        }
-    ]
+
+
+interface IMenuProps {
+    menuOptions:  {[key : number] : IMenuElement};
+    selectedComponent: number;
+    setSelected: React.Dispatch<React.SetStateAction<number>>
+}
+
+export function CampeonatoMenu({ menuOptions, selectedComponent, setSelected }: IMenuProps) {
+    
 
     return (
-        <nav className={"flex flex-col items-center"}>
+        <nav className={"flex flex-col items-center h-full"}>
             <div>
                 <ul>
-                    {menuOptions.map((option, index) => (
-                        <li key={index} className={"flex p-6 items-center gap-2 hover:scale-105"}>
-                            {option.icon}
-                            <Text className={"text-gray-200"}>{option.label}</Text>
+                    {Object.keys(menuOptions).map((key, index) => {
+                        const {icon, label} = menuOptions[Number(key)];
+                        const selected = label === menuOptions[selectedComponent].label;
+                        return (
+                        <li key={index} className={"p-6"}>
+                            <div onClick={() => setSelected(Number(key))} className={`flex cursor-pointer select-none  items-center gap-2 hover:scale-105 ${ selected ? 'optionSelected' : ''}`}>
+                                {icon}
+                                <Text className={` ${ selected ? 'optionSelected' : 'text-gray-200'}`}>{label}</Text>
+                            </div>
+                            
                         </li>
-                    ))}
+                    )}
+                    )}
                 </ul>
             </div>
             <div className={"flex flex-col gap-10"}>

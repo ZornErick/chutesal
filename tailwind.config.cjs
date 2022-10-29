@@ -9,6 +9,7 @@ module.exports = {
         sans: "Inter, sans-serif"
       },
       fontSize: {
+        xxs: "0.7rem",
         xs: 14,
         sm: 16,
         md: 18,
