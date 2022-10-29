@@ -19,15 +19,11 @@ export function TableBody({columns, data} : ITableBodyProps) {
 
                             return (
                                 <li key={`${id}-${index}`} className={`flex justify-center ${width || "w-72"}`}>
-                                   {type === "action" ? transformCell!() : (transformCell ? transformCell(cellValue) : <Text className={"flex justify-center items-center text-white"}>{cellValue}</Text>) }
+                                   {type === "action" ? transformCell!(cellValue) : (transformCell ? transformCell(cellValue) : <Text className={"flex justify-center items-center text-white"}>{cellValue}</Text>) }
                                 </li>
                             )
-                            
                         })
                     }
-                    
-                    
-                    
                 </ul>
             ))}
         </div>

@@ -24,7 +24,7 @@ export function Menu() {
                 {routes.map((route, index) => (
                     <li key={index} className={"flex flex-col h-full items-center justify-between"}>
                         <div></div>
-                        <NavLink to={route.to}><Text className={"text-gray-200 px-3 hover:text-white"}>{route.label}</Text></NavLink>
+                        <NavLink to={route.to} ><Text className={"text-gray-200 px-3 hover:text-white"}>{route.label}</Text></NavLink>
                         {pathName === route.to ? (
                             <hr className={"w-12 border-y-1 border-green-700 bg-green-700"} />
                         ) : (<div></div>)}

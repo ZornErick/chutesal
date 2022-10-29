@@ -5,9 +5,28 @@ import { Plus } from "../../assets/Icons/Plus/Plus";
 import { TableBody } from "../../components/Table/TableBody/TableBody";
 import { Options } from "../../components/Options/Options";
 import Table, { IColumnOption } from "../../components/Table/Table";
+import { useEffect, useState } from "react";
+import apiInstance from "../../services/apit";
+import { toast } from "react-toastify";
 
+interface IData {
+    nome: string;
+    status: string;
+    unidade: string;
+    inscricoes: string;
+    duracao: string;
+}
 
 export function Campeonatos() {
+    const [campeonatos, setCampeonatos] = useState<IData[]>([]);
+
+    const deleteCampeonato = async (id : any) => {
+        try{
+
+        }catch(e){
+            
+        }
+    }
 
     const headerOptions : IColumnOption[] = [          
         {
@@ -39,31 +58,34 @@ export function Campeonatos() {
         {
             displayName: "Opções",
             type: "action",
-            transformCell: () => <Options editCallback={() => {}} deleteCallback={() => {}}/>,
+            valueKey: "id",
+            transformCell: (id) => <Options 
+                editCallback={() => {}} 
+                deleteCallback={() => deleteCampeonato(id)}}
+            />,
             id: "opcoes",
 
         },     
     ];
+
     const filterOptions = ["Nome", "Inscrições", "Duração"];
-    const campeonatos = [
-        {
-            nome: "Copa Mackenzie",
-            status: "ANDAMENTO",
-            unidade: "Higienóvoles Potentes",
-            inscricoes: "21/12/2022 - 31/12/2022",
-            duracao: "01/01/2023 - 31/01/2023"
-        },
-        {
-            nome: "Copa Kenzie",
-            status: "FINALIZADO",
-            unidade: "Higienóvoles Carentes",
-            inscricoes: "21/12/2022 - 31/12/2022",
-            duracao: "01/01/2023 - 31/01/2023"
+
+    const fetchData = async () => {
+        try{
+            const { data } = await apiInstance.get(`/campeonato`);
+
+            setCampeonatos(data);
+        }catch(e){
+            toast.error(`Não foi possível buscar os campeonatos`)
         }
-    ];
+    }
+   
+    useEffect(() => {
+        fetchData();
+    },[])
     return (
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-            <div className={"flex w-full w- justify-between"}>
+            <div className={"flex w-full justify-between"}>
                 <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
                     <Plus />
                     Incluir
@@ -77,4 +99,3 @@ export function Campeonatos() {
         </main>
     );
 }
-
