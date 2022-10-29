@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from '../Button/Button';
 import { Cancel  } from '../../assets/Icons/Cancel/Cancel'
 import { Confirm } from '../../assets/Icons/Confirm/Confirm'
@@ -25,7 +26,7 @@ const ButtonIcon = ({icon, IconElement, text, action} : IButtonIconProps) => {
   return(
     <div className='flex'>
       <Button className="w-36 text-gray-200 transition duration-75 hover:scale-110 flex gap-1 justify-center items-center bg-gray-700" onClick={action} >
-        {icon ? <img  className="w-5 h-5 bg-green-700" src={icon} /> : <IconElement  className="w-5 h-5" />}
+        {icon ? <img className="w-5 h-5 bg-green-700" src={icon} alt={"ícone"} /> : <IconElement  className="w-5 h-5" />}
         <p>{text}</p>
       </Button>
     </div>
