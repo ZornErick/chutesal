@@ -8,6 +8,19 @@ import Table, { IColumnOption } from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
+import DeleteModalContent from "../../components/ModalContent/ModalContent";
+import Modal from "../../components/Modal/Modal";
+import { Thrash } from '../../assets/Icons/Thrash/Thrash' 
+
+
+
+interface ICampeonato {
+    id: number;
+    dataInicialJogos : string;
+    dataFinalJogos: string;
+    dataInicialInscricao: string;
+    dataFinalInscricao: string;
+}
 
 interface IData {
     nome: string;
@@ -19,12 +32,31 @@ interface IData {
 
 export function Campeonatos() {
     const [campeonatos, setCampeonatos] = useState<IData[]>([]);
+    const [toDelete, setToDelete] = useState<number | null>(1);
 
     const deleteCampeonato = async (id : any) => {
         try{
 
         }catch(e){
             
+        }
+        
+    }
+
+    const fetchData = async () => {
+        try{
+            const { data } = await apiInstance.get<ICampeonato[]>(`/campeonato`);
+            console.log({data});
+            
+            const formattedData : IData[] = data?.map(({}) =>{
+                return {} as IData;
+            }); 
+
+            setCampeonatos(formattedData);
+        }catch(e){
+            console.log({e});
+            
+            toast.error(`Não foi possível buscar os campeonatos`)
         }
     }
 
@@ -59,10 +91,10 @@ export function Campeonatos() {
             displayName: "Opções",
             type: "action",
             valueKey: "id",
-            transformCell: (id) => <Options 
+            transformCell: (id) => (<Options 
                 editCallback={() => {}} 
-                deleteCallback={() => deleteCampeonato(id)}}
-            />,
+                deleteCallback={() => setToDelete(id)}
+            />),
             id: "opcoes",
 
         },     
@@ -70,32 +102,35 @@ export function Campeonatos() {
 
     const filterOptions = ["Nome", "Inscrições", "Duração"];
 
-    const fetchData = async () => {
-        try{
-            const { data } = await apiInstance.get(`/campeonato`);
-
-            setCampeonatos(data);
-        }catch(e){
-            toast.error(`Não foi possível buscar os campeonatos`)
-        }
-    }
-   
     useEffect(() => {
         fetchData();
     },[])
+
+
     return (
-        <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-            <div className={"flex w-full justify-between"}>
-                <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
-                    <Plus />
-                    Incluir
-                </Button>
-                <Filter filters={filterOptions} />
-            </div>
-            <Table
-                columns={headerOptions}
-                data={campeonatos}
+        <>
+            <Modal
+                open={toDelete !== null}
+                Icon={Thrash}
+                modalText="Deseja apagar o campeonato?"
+                confirmAction={() => deleteCampeonato(toDelete)}
+                cancelAction={() => setToDelete(null)}
             />
-        </main>
+
+            <main className={"flex flex-col items-center h-full my-12 mx-8"}>
+                <div className={"flex w-full justify-between"}>
+                    <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
+                        <Plus />
+                        Incluir
+                    </Button>
+                    <Filter filters={filterOptions} />
+                </div>
+                <Table
+                    columns={headerOptions}
+                    data={campeonatos}
+                />
+            </main>
+        </>
+        
     );
 }

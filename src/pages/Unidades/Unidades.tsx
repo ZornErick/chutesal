@@ -5,9 +5,52 @@ import { Filter } from "../../components/Filter/Filter";
 import { Options } from "../../components/Options/Options";
 import { TableBody } from "../../components/Table/TableBody/TableBody";
 import Table, { IColumnOption } from "../../components/Table/Table";
+import { useEffect, useState } from "react";
+import apiInstance from "../../services/apit";
+import { toast } from "react-toastify";
+
+interface IEndereco {
+
+    cep: string;
+    numero: number;
+    logradouro: string;
+    bairro: string;
+    localidade: string;
+    uf: string;
+}
+
+interface IData {
+    id: number;
+    numero: number;
+    nome: string;
+    endereco: IEndereco;
+    
+}
+
 
 export function Unidades() {
+    const [unidades, setUnidades] = useState<IData[]>([]);
+    const [toDelete, setToDelete] = useState<number | null>(1);
 
+
+    const deleteUnidade = async (id : any) => {
+        try{
+            
+        }catch(e){
+            
+        }
+        
+    }
+
+    const fetchData = async () => {
+        try{
+            const { data } = await apiInstance.get(`/unidade`);
+
+            setUnidades(data);
+        }catch(e){
+            toast.error(`Não foi possível buscar as unidades`)
+        }
+    }
 
     const headerOptions : IColumnOption[] = [          
         {
@@ -33,21 +76,12 @@ export function Unidades() {
         },     
     ];
 
-    const unidades = [
-        {
-            numero: "25",
-            nome: "Higienóvoles Potentes",
-            endereco: "Rua Pará, 369",
-        },
-        {
-            numero: "30",
-            nome: "Higienóvoles Paratis",
-            endereco: "Rua Maria Antônia, 369",
-        }
-    ]
-
     const filterOptions = ["Número", "Nome"];
 
+
+    useEffect(() => {
+        fetchData()
+    },[]);
     return (
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>
             <div className={"flex w-full justify-between"}>
