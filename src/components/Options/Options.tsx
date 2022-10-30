@@ -2,18 +2,17 @@ import { Edit } from "../../assets/Icons/Edit/Edit";
 import { Thrash } from "../../assets/Icons/Thrash/Thrash";
 
 interface IOptionsProps{
-    editCallback: () => void;
+    editCallback?: () => void;
     deleteCallback: () => void;
+    stroke?: string;
 }
 
-export function Options({editCallback, deleteCallback} : IOptionsProps) {
+export function Options({editCallback, deleteCallback, stroke} : IOptionsProps) {
     return (
         <div className={"flex gap-2"}>
-            <button onClick={editCallback}>
-                <Edit />
-            </button>
+            {editCallback ? <button onClick={editCallback}><Edit /></button> : ""}
             <button onClick={deleteCallback}>
-                <Thrash />
+                {stroke ? <Thrash stroke={stroke} /> : <Thrash />}
             </button>
         </div>
     );

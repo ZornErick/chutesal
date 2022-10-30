@@ -1,14 +1,8 @@
 import {Button} from "../../Button/Button";
 import {Text} from "../../Text/Text";
-import {CampeonatoNavIcon} from "../../../assets/Icons/CampeonatoNavIcon/CampeonatoNavIcon";
-import {JogoNavIcon} from "../../../assets/Icons/JogoNavIcon/JogoNavIcon";
-import {InscritoNavIcon} from "../../../assets/Icons/InscritoNavIcon/InscritoNavIcon";
-import {TimeNavIcon} from "../../../assets/Icons/TimeNavIcon/TimeNavIcon";
-import {VencedorNavIcon} from "../../../assets/Icons/VencedorNavIcon/VencedorNavIcon";
 import {Thrash} from "../../../assets/Icons/Thrash/Thrash";
 import {Save} from "../../../assets/Icons/Save/Save";
-import { IMenuElement } from "../../../pages/GerenciarCampeonato/GerenciarCampeonato";
-
+import { IMenuElement } from "../../../pages/Manager/GerenciarCampeonato/GerenciarCampeonato";
 
 
 interface IMenuProps {
@@ -18,8 +12,6 @@ interface IMenuProps {
 }
 
 export function CampeonatoMenu({ menuOptions, selectedComponent, setSelected }: IMenuProps) {
-    
-
     return (
         <nav className={"flex flex-col items-center h-full"}>
             <div>
@@ -33,7 +25,6 @@ export function CampeonatoMenu({ menuOptions, selectedComponent, setSelected }: 
                                 {icon}
                                 <Text className={` ${ selected ? 'optionSelected' : 'text-gray-200'}`}>{label}</Text>
                             </div>
-                            
                         </li>
                     )}
                     )}

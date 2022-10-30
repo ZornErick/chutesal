@@ -1,17 +1,15 @@
-import { Header } from "../../components/Table/TableHeader/TableHeader";
-import { Filter } from "../../components/Filter/Filter";
-import { Button } from "../../components/Button/Button";
-import { Plus } from "../../assets/Icons/Plus/Plus";
-import { TableBody } from "../../components/Table/TableBody/TableBody";
-import { Options } from "../../components/Options/Options";
-import Table, { IColumnOption } from "../../components/Table/Table";
+import { Filter } from "../../../components/Filter/Filter";
+import { Button } from "../../../components/Button/Button";
+import { Plus } from "../../../assets/Icons/Plus/Plus";
+import { Options } from "../../../components/Options/Options";
+import Table, { IColumnOption } from "../../../components/Table/Table";
 import { useEffect, useState } from "react";
-import apiInstance from "../../services/apit";
+import apiInstance from "../../../services/apit";
 import { toast } from "react-toastify";
-import DeleteModalContent from "../../components/ModalContent/ModalContent";
-import Modal from "../../components/Modal/Modal";
-import { Thrash } from '../../assets/Icons/Thrash/Thrash' 
+import Modal from "../../../components/Modal/Modal";
+import { Thrash } from '../../../assets/Icons/Thrash/Thrash'
 import { useNavigate } from "react-router-dom";
+
 
 export type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
 
@@ -48,15 +46,14 @@ export function Campeonatos() {
         try{
             const { status, data } = await apiInstance.delete(`/campeonato/${id}`)
  
-            if(status === 200){
+            if(status === 200) {
                 toast.success(`Campeonato apagado com sucesso`)
                 fetchData()
             }
-        }catch(e){
+        } catch(e) {
             console.log(e);            
             toast.error(`Não foi possível apagar o campeonato`)
-        }
-        finally{
+        } finally {
             setToDelete(null);
         }
         

@@ -1,17 +1,16 @@
-import { Header } from "../../components/Table/TableHeader/TableHeader";
-import { Button } from "../../components/Button/Button";
-import { Plus } from "../../assets/Icons/Plus/Plus";
-import { Filter } from "../../components/Filter/Filter";
-import { Options } from "../../components/Options/Options";
-import { TableBody } from "../../components/Table/TableBody/TableBody";
-import Table, { IColumnOption } from "../../components/Table/Table";
+import { Button } from "../../../components/Button/Button";
+import { Plus } from "../../../assets/Icons/Plus/Plus";
+import { Filter } from "../../../components/Filter/Filter";
+import { Options } from "../../../components/Options/Options";
+import Table, { IColumnOption } from "../../../components/Table/Table";
 import { useEffect, useState } from "react";
-import apiInstance from "../../services/apit";
+import apiInstance from "../../../services/apit";
 import { toast } from "react-toastify";
-import Modal from "../../components/Modal/Modal";
-import { Thrash } from "../../assets/Icons/Thrash/Thrash"
-interface IEndereco {
+import Modal from "../../../components/Modal/Modal";
+import { Thrash } from "../../../assets/Icons/Thrash/Thrash"
 
+
+interface IEndereco {
     cep: string;
     numero: number;
     logradouro: string;
@@ -41,7 +40,6 @@ export function Unidades() {
     const [unidades, setUnidades] = useState<IData[]>([]);
     const [toDelete, setToDelete] = useState<number | null>(null);
 
-
     const deleteUnidade = async (id : any) => {
         try{
             const { status, data } = await apiInstance.delete(`/unidade/${id}`)
@@ -57,7 +55,6 @@ export function Unidades() {
         finally{
             setToDelete(null);
         }
-        
     }
 
     const fetchData = async () => {
@@ -79,7 +76,7 @@ export function Unidades() {
                 } as IData
             });
             setUnidades(formattedData);
-        }catch(e){
+        } catch(e){
             toast.error(`Não foi possível buscar as unidades`)
         }
     }
@@ -112,7 +109,6 @@ export function Unidades() {
 
     const filterOptions = ["Número", "Nome"];
 
-
     useEffect(() => {
         fetchData()
     },[]);
@@ -140,6 +136,5 @@ export function Unidades() {
             />
         </main>
         </>
-       
     );
 }

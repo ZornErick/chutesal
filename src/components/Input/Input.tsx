@@ -1,3 +1,4 @@
+import React from "react";
 import { Field } from "formik";
 import LabelForm from "../LabelForm/LabelForm";
 
@@ -15,6 +16,5 @@ export default ({label, name, id, placeholder, ...rest}: IInputProps) => {
       <Field className="w-full text-xs p-1 bg-transparent outline-0	text-white placeholder-white border-b border-b-gray-400" id={id} name={name} placeholder={placeholder} {...rest}/>  
       <LabelForm label={label} nameFor={name} />
     </div>
-
   );
 }

@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Menu } from "./components/Menu/Menu";
-import { Campeonatos } from "./pages/Campeonatos/Campeonatos";
-import { Unidades } from "./pages/Unidades/Unidades";
+import { Campeonatos } from "./pages/Manager/Campeonatos/Campeonatos";
+import { Unidades } from "./pages/Manager/Unidades/Unidades";
 import { Footer } from "./components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {GerenciarCampeonato} from "./pages/GerenciarCampeonato/GerenciarCampeonato";
+import {GerenciarCampeonato} from "./pages/Manager/GerenciarCampeonato/GerenciarCampeonato";
+import {UserCampeonatos} from "./pages/User/Campeonatos/Campeonatos";
 
 export function AppRouter() {
     return (
@@ -21,6 +22,7 @@ export function AppRouter() {
                     <Routes>
                         <Route path={"/campeonatos"} element={<Campeonatos />} />
                         <Route path={"/campeonatos/:id"} element={<GerenciarCampeonato />}/>
+                        <Route path={"/user/campeonatos"} element={<UserCampeonatos />}/>
 
                         <Route path={"/unidades"} element={<Unidades />} />
 

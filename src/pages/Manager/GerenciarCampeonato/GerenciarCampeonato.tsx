@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { CampeonatoNavIcon } from "../../assets/Icons/CampeonatoNavIcon/CampeonatoNavIcon";
-import { InscritoNavIcon } from "../../assets/Icons/InscritoNavIcon/InscritoNavIcon";
-import { JogoNavIcon } from "../../assets/Icons/JogoNavIcon/JogoNavIcon";
-import { TimeNavIcon } from "../../assets/Icons/TimeNavIcon/TimeNavIcon";
-import { VencedorNavIcon } from "../../assets/Icons/VencedorNavIcon/VencedorNavIcon";
-import { CampeonatoMenu } from "../../components/Campeonato/CampeonatoMenu/CampeonatoMenu";
-import { CampeonatoUpdateForm } from "../../components/Campeonato/CampeonatoUpdateForm/CampeonatoUpdateForm";
+import { CampeonatoNavIcon } from "../../../assets/Icons/CampeonatoNavIcon/CampeonatoNavIcon";
+import { InscritoNavIcon } from "../../../assets/Icons/InscritoNavIcon/InscritoNavIcon";
+import { JogoNavIcon } from "../../../assets/Icons/JogoNavIcon/JogoNavIcon";
+import { TimeNavIcon } from "../../../assets/Icons/TimeNavIcon/TimeNavIcon";
+import { VencedorNavIcon } from "../../../assets/Icons/VencedorNavIcon/VencedorNavIcon";
+import { CampeonatoMenu } from "../../../components/Campeonato/CampeonatoMenu/CampeonatoMenu";
+import { CampeonatoUpdateForm } from "../../../components/Campeonato/CampeonatoUpdateForm/CampeonatoUpdateForm";
 import './style.css'
+import {Inscritos} from "../../../components/Campeonato/Inscritos/Inscritos";
+
+
 export interface IMenuElement {
     element: JSX.Element;
     icon: JSX.Element;
@@ -27,7 +30,7 @@ const componentsOptions : {[key : number] : IMenuElement} = {
     3:{
         label: "Inscritos",
         icon: <InscritoNavIcon />,
-        element: <></>
+        element: <Inscritos />
     },
     4:{
         label: "Times",
@@ -44,12 +47,6 @@ const componentsOptions : {[key : number] : IMenuElement} = {
 export function GerenciarCampeonato() {
     const [component, setComponent] = useState<number>(Number(Object.keys(componentsOptions)[0]));
 
-
-   
-
-    
-
-
     return (
         <div className="flex justify-between p-6 h-full items-center">
             <CampeonatoMenu
@@ -58,8 +55,6 @@ export function GerenciarCampeonato() {
                 setSelected={setComponent}
             />
             { componentsOptions[component]?.element }
-
         </div>
-
     );
 }
