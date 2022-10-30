@@ -46,7 +46,7 @@ export function Inscritos() {
             displayName: "Excluir",
             type: "action",
             valueKey: "id",
-            transformCell: (id) => (<Options stroke={"#006666"}
+            transformCell: ({value: id}) => (<Options stroke={"#006666"}
                 deleteCallback={() => setToDelete(id)}
             />),
             id: "excluir",

@@ -1,4 +1,4 @@
-import {InscreverSeForm} from "../../../components/InscreverSe/InscreverSeForm/InscreverSeForm";
+import {InscreverSeForm} from "../../components/InscreverSe/InscreverSeForm/InscreverSeForm";
 
 export function Inscricao() {
     return (

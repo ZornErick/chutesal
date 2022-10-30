@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Logo } from "../../assets/Icons/Logo/Logo";
 import { Exit } from "../../assets/Icons/Exit/Exit";
 import { Text } from "../Text/Text";
+import { useLogin } from "../../hooks/useLogin";
 
 export function Menu() {
     const routes = [
@@ -16,7 +17,7 @@ export function Menu() {
     ]
 
     const pathName = useLocation().pathname;
-
+    const {logado, setLogado} = useLogin();
     return (
         <nav className={"flex bg-gray-700 w-full h-14 items-center justify-between"}>
             <NavLink to={"/"}><Logo className={"ml-6 hover:stroke-green-500"} /></NavLink>
@@ -33,7 +34,7 @@ export function Menu() {
                 ))}
             </ul>
             <button className={"flex mr-6 items-center"}>
-                <Exit />
+                <Exit onClick={() => setLogado((logado) => !logado)} />
                 <Text className={"text-gray-200 px-2 hover:text-white"}>Logout</Text>
             </button>
         </nav>

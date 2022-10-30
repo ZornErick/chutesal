@@ -1,13 +1,13 @@
-import { Button } from "../../../components/Button/Button";
-import { Plus } from "../../../assets/Icons/Plus/Plus";
-import { Filter } from "../../../components/Filter/Filter";
-import { Options } from "../../../components/Options/Options";
-import Table, { IColumnOption } from "../../../components/Table/Table";
+import { Button } from "../../components/Button/Button";
+import { Plus } from "../../assets/Icons/Plus/Plus";
+import { Filter } from "../../components/Filter/Filter";
+import { Options } from "../../components/Options/Options";
+import Table, { IColumnOption } from "../../components/Table/Table";
 import { useEffect, useState } from "react";
-import apiInstance from "../../../services/apit";
+import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
-import Modal from "../../../components/Modal/Modal";
-import { Thrash } from "../../../assets/Icons/Thrash/Thrash"
+import Modal from "../../components/Modal/Modal";
+import { Thrash } from "../../assets/Icons/Thrash/Thrash"
 
 
 interface IEndereco {
@@ -19,7 +19,7 @@ interface IEndereco {
     uf: string;
 }
 
-interface IUnidade {
+export interface IUnidade {
     id: number;
     numero: number;
     nome: string;
@@ -103,7 +103,7 @@ export function Unidades() {
             id: "opcoes",
             type: "action",
             valueKey: "id",
-            transformCell: (id) => <Options  editCallback={() => {}} deleteCallback={() => setToDelete(id)}/>
+            transformCell: ({value: id}) => <Options  editCallback={() => {}} deleteCallback={() => setToDelete(id)}/>
         },     
     ];
 
@@ -118,7 +118,7 @@ export function Unidades() {
         
             open={toDelete !== null}
             Icon={Thrash}
-            modalText="Deseja apagar o campeonato?"
+            modalText="Deseja apagar a unidade?"
             confirmAction={() => deleteUnidade(toDelete)}
             cancelAction={() => setToDelete(null)}
         />

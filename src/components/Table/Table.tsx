@@ -5,13 +5,16 @@ type ColumnType = "value" | "action";
 
 type ColumnWidth = "w-12" | "w-44" | "w-96";
 
-
-export interface IColumnOption {
+interface ITransformProps<T>{
+    value? : any,
+    rowObject: T
+}
+export interface IColumnOption<T = any> {
     displayName: string;
     valueKey?: string;
     className?: string;
     width?: ColumnWidth;
-    transformCell?: (value? : any) => any;
+    transformCell?:({value, rowObject} : ITransformProps<T>) => any;
     type?: ColumnType;
     id: string;
 }

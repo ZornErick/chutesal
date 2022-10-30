@@ -1,14 +1,19 @@
-import { Filter } from "../../../components/Filter/Filter";
-import { Button } from "../../../components/Button/Button";
-import { Plus } from "../../../assets/Icons/Plus/Plus";
-import { Options } from "../../../components/Options/Options";
-import Table, { IColumnOption } from "../../../components/Table/Table";
+import { Filter } from "../../components/Filter/Filter";
+import { Button } from "../../components/Button/Button";
+import { Plus } from "../../assets/Icons/Plus/Plus";
+import { Options } from "../../components/Options/Options";
+import Table, { IColumnOption } from "../../components/Table/Table";
 import { useEffect, useState } from "react";
-import apiInstance from "../../../services/apit";
+import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
-import Modal from "../../../components/Modal/Modal";
-import { Thrash } from '../../../assets/Icons/Thrash/Thrash'
+import Modal from "../../components/Modal/Modal";
+import { Thrash } from '../../assets/Icons/Thrash/Thrash'
 import { useNavigate } from "react-router-dom";
+import { convertToDate } from "../../helpers/date";
+import IconButton from "../../components/IconButton/IconButton";
+import { UserSignIn } from "../../assets/Icons/UserSignIn/UserSignIn";
+import { DisabledCalendar } from "../../assets/Icons/DisabledCalendar/DisabledCalendar";
+import { useLogin } from "../../hooks/useLogin";
 
 
 export type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
@@ -18,15 +23,16 @@ interface IUnidade {
     nome: string;
 }
 
-interface ICampeonato {
+export interface ICampeonato {
     id: number;
     nome: string;
     dataInicialJogos : string;
     dataFinalJogos: string;
     dataInicialInscricao: string;
     dataFinalInscricao: string;
+    inicioDivulgacao: string;
     status: StatusCampeonato;
-    unidade: IUnidade
+    unidade: IUnidade;
 }
 
 interface IData {
@@ -35,10 +41,14 @@ interface IData {
     status: StatusCampeonato;
     unidade: string;
     inscricoes: string;
+    dataInicialInscricao: Date;
+    dataFinalInscricao: Date;
     duracao: string;
 }
 
 export function Campeonatos() {
+    const {logado} = useLogin();
+
     const [campeonatos, setCampeonatos] = useState<IData[]>([]);
     const [toDelete, setToDelete] = useState<number | null>(null);
     const navigate = useNavigate();
@@ -79,8 +89,10 @@ export function Campeonatos() {
                     nome,
                     status,
                     unidade,
-                    inscricoes: `${dataInicialInscricao?.replace("-","/")} - ${dataFinalInscricao?.replace("-","/")}`,
-                    duracao: `${dataInicialJogos?.replace("-","/")} - ${dataFinalJogos?.replace("-","/")}`,
+                    inscricoes: `${dataInicialInscricao?.replace(/-/g,"/")} - ${dataFinalInscricao?.replace(/-/g,"/")}`,
+                    dataInicialInscricao: convertToDate(dataInicialInscricao),
+                    dataFinalInscricao: convertToDate(dataFinalInscricao),
+                    duracao: `${dataInicialJogos?.replace(/-/g,"/")} - ${dataFinalJogos?.replace(/-/g,"/")}`,
                 }) as IData;
             }); 
 
@@ -92,7 +104,7 @@ export function Campeonatos() {
         }
     }
 
-    const headerOptions : IColumnOption[] = [          
+    const headerOptions : IColumnOption<IData>[] = [          
         {
             displayName: "Nome",
             valueKey: "nome",
@@ -123,10 +135,23 @@ export function Campeonatos() {
             displayName: "Opções",
             type: "action",
             valueKey: "id",
-            transformCell: (id) => (<Options 
-                editCallback={() => navigate(`${id}`)} 
-                deleteCallback={() => setToDelete(id)}
-            />),
+            transformCell: ({value: id, rowObject: { dataInicialInscricao, dataFinalInscricao }}) => 
+            {
+                const now = new Date();
+                const inscricaoDisponivel = dataInicialInscricao < now && now < dataFinalInscricao;
+                return ( logado ?
+                    <Options 
+                        editCallback={() => navigate(`${id}`)} 
+                        deleteCallback={() => setToDelete(id)}
+                    /> :
+                    <IconButton
+                        text={inscricaoDisponivel ? "Inscreva-se" : "Indisponível"}
+                        IconElement={inscricaoDisponivel ? UserSignIn : DisabledCalendar}
+                        disabled={!inscricaoDisponivel}
+                        className="bg-transparent"
+                        action={inscricaoDisponivel ? () => navigate(`${id}/inscricao`) : () =>{}}
+                    />)
+                },
             id: "opcoes",
         },     
     ];
@@ -150,7 +175,7 @@ export function Campeonatos() {
 
             <main className={"flex flex-col items-center h-full my-12 mx-8"}>
                 <div className={"flex w-full justify-between"}>
-                    <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
+                    <Button onClick={() => navigate("create")} className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
                         <Plus />
                         Incluir
                     </Button>

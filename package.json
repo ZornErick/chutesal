@@ -14,13 +14,16 @@
     "clsx": "^1.2.1",
     "formik": "^2.2.9",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-loading": "^2.0.3",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.2",
     "react-toastify": "^9.0.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
+    "@types/react-datepicker": "^4.4.2",
     "@types/react-dom": "^18.0.6",
     "@types/react-modal": "^3.13.1",
     "@vitejs/plugin-react": "^2.1.0",
