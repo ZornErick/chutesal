@@ -1,9 +1,11 @@
-import {Button} from "../../../components/Button/Button";
-import {Plus} from "../../../assets/Icons/Plus/Plus";
 import {Filter} from "../../../components/Filter/Filter";
 import Table, {IColumnOption} from "../../../components/Table/Table";
+import {InscreverSe} from "../../../components/InscreverSe/InscreverSe";
+import {useNavigate} from "react-router-dom";
 
 export function UserCampeonatos() {
+    const navigate = useNavigate();
+
     const filterOptions = ["Nome", "Inscrições", "Duração"];
 
     const headerOptions : IColumnOption[] = [
@@ -35,7 +37,11 @@ export function UserCampeonatos() {
         },
         {
             displayName: "Inscrever-se",
-            valueKey: "inscreverse",
+            type: "action",
+            valueKey: "id",
+            transformCell: (id) => (
+                <InscreverSe inscrevaSeCallback={() => navigate(`${id}`)} />
+            ),
             id: "inscreverse",
         },
     ];
@@ -46,11 +52,7 @@ export function UserCampeonatos() {
 
     return (
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-            <div className={"flex w-full justify-between"}>
-                <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
-                    <Plus />
-                    Incluir
-                </Button>
+            <div className={"flex w-full justify-end"}>
                 <Filter filters={filterOptions} />
             </div>
             <Table

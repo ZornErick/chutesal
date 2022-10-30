@@ -128,7 +128,6 @@ export function Campeonatos() {
                 deleteCallback={() => setToDelete(id)}
             />),
             id: "opcoes",
-
         },     
     ];
 
