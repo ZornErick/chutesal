@@ -43,7 +43,7 @@ export function InscreverSeForm() {
                         />
                     </div>
                     <div className={"flex justify-center"}>
-                        <Button type={"submit"} className={"flex items-center justify-center w-48 h-10 hover:scale-105 drop-shadow-md gap-2 bg-gray-700 text-gray-200 font-sans"}>
+                        <Button type={"submit"} className={"flex items-center justify-center w-48 h-10 hover:scale-105 drop-shadow-md transition gap-2 bg-gray-700 text-gray-200 font-sans font-normal"}>
                             <EnviarIcon />
                             Enviar Inscrição
                         </Button>

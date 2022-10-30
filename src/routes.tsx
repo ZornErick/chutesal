@@ -33,6 +33,5 @@ export function AppRouter() {
                 </Router>
             </main>
         </>
-        
     );
 }
