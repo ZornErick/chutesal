@@ -42,4 +42,12 @@ public class Unidade {
         this.quadras = quadras;
         this.campeonatos = campeonatos;
     }
+
+    public void deleteQuadra(Quadra quadra) {
+        this.quadras.remove(quadra);
+    }
+
+    public void deleteCampeonato(Campeonato campeonato) {
+        this.campeonatos.remove(campeonato);
+    }
 }

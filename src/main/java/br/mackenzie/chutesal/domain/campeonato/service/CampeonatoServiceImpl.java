@@ -85,4 +85,15 @@ public class CampeonatoServiceImpl implements CampeonatoService {
             throw new NotFoundException("Campeonato " + id + " não encontrado!");
         }
     }
+
+    @Override
+    public void deleteTime(Long campeonatoId, Long timeId) {
+        Optional<Campeonato> campeonato = campeonatoRepo.findById(campeonatoId);
+        Optional<Time> time = timeRepo.findById(timeId);
+        if(campeonato.isPresent()) {
+            time.ifPresent(timeEntity -> campeonato.get().deleteTime(timeEntity));
+            throw new NotFoundException("Time " + timeId + " não encontrado!");
+        }
+        throw new NotFoundException("Campeonato " + campeonatoId + " não encontrado!");
+    }
 }

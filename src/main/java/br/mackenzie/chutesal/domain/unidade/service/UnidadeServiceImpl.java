@@ -103,4 +103,26 @@ public class UnidadeServiceImpl implements UnidadeService {
             throw new NotFoundException("Unidade " + id + " não encontrada!");
         }
     }
+
+    @Override
+    public void deleteQuadra(Long unidadeId, Long quadraId) {
+        Optional<Unidade> unidade = unidadeRepo.findById(unidadeId);
+        Optional<Quadra> quadra = quadraRepo.findById(quadraId);
+        if(unidade.isPresent()) {
+            quadra.ifPresent(quadraEntity -> unidade.get().deleteQuadra(quadraEntity));
+            throw new NotFoundException("Quadra " + quadraId + " não encontrada!");
+        }
+        throw new NotFoundException("Unidade " + unidadeId + " não encontrada!");
+    }
+
+    @Override
+    public void deleteCampeonato(Long unidadeId, Long campeonatoId) {
+        Optional<Unidade> unidade = unidadeRepo.findById(unidadeId);
+        Optional<Campeonato> campeonato = campeonatoRepo.findById(campeonatoId);
+        if(unidade.isPresent()) {
+            campeonato.ifPresent(campeonatoEntity -> unidade.get().deleteCampeonato(campeonatoEntity));
+            throw new NotFoundException("Campeonato " + campeonatoId + " não encontrado!");
+        }
+        throw new NotFoundException("Unidade " + unidadeId + " não encontrada!");
+    }
 }

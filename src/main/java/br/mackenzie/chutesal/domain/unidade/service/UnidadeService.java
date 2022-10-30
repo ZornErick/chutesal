@@ -8,4 +8,8 @@ import java.util.List;
 public interface UnidadeService extends CrudService<Unidade> {
 
     List<Unidade> findByNome(String nome);
+
+    void deleteQuadra(Long unidadeId, Long quadraId);
+
+    void deleteCampeonato(Long unidadeId, Long campeonatoId);
 }

@@ -57,4 +57,8 @@ public class Campeonato {
         this.jogos = jogos;
         this.times = times;
     }
+
+    public void deleteTime(Time time) {
+        this.times.remove(time);
+    }
 }
