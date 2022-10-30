@@ -1,6 +1,6 @@
 import {Filter} from "../../../components/Filter/Filter";
 import Table, {IColumnOption} from "../../../components/Table/Table";
-import {InscreverSe} from "../../../components/InscreverSe/InscreverSe";
+import {InscreverSeButton} from "../../../components/InscreverSe/InscreverSeButton/InscreverSeButton";
 import {useNavigate} from "react-router-dom";
 
 export function UserCampeonatos() {
@@ -40,7 +40,7 @@ export function UserCampeonatos() {
             type: "action",
             valueKey: "id",
             transformCell: (id) => (
-                <InscreverSe inscrevaSeCallback={() => navigate(`${id}`)} />
+                <InscreverSeButton inscrevaSeCallback={() => navigate(`${id}`)} />
             ),
             id: "inscreverse",
         },
@@ -51,14 +51,16 @@ export function UserCampeonatos() {
     }]
 
     return (
-        <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-            <div className={"flex w-full justify-end"}>
-                <Filter filters={filterOptions} />
-            </div>
-            <Table
-                columns={headerOptions}
-                data={campeonatos}
-            />
-        </main>
+        <>
+            <main className={"flex flex-col items-center h-full my-12 mx-8"}>
+                <div className={"flex w-full justify-end"}>
+                    <Filter filters={filterOptions} />
+                </div>
+                <Table
+                    columns={headerOptions}
+                    data={campeonatos}
+                />
+            </main>
+        </>
     );
 }

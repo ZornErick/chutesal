@@ -1,11 +1,11 @@
-import {Button} from "../Button/Button";
-import {UserIcon} from "../../assets/Icons/UserIcon/UserIcon";
+import {Button} from "../../Button/Button";
+import {UserIcon} from "../../../assets/Icons/UserIcon/UserIcon";
 
-interface InscreverSeProps {
+interface InscreverSeButtonProps {
     inscrevaSeCallback: () => void;
 }
 
-export function InscreverSe({inscrevaSeCallback}: InscreverSeProps) {
+export function InscreverSeButton({inscrevaSeCallback}: InscreverSeButtonProps) {
     return (
         <div>
             <Button className={"flex bg-transparent items-center gap-1 text-white font-normal font-sans"}>

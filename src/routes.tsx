@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {GerenciarCampeonato} from "./pages/Manager/GerenciarCampeonato/GerenciarCampeonato";
 import {UserCampeonatos} from "./pages/User/Campeonatos/Campeonatos";
+import {Inscricao} from "./pages/User/Inscricao/Inscricao";
 
 export function AppRouter() {
     return (
@@ -26,6 +27,7 @@ export function AppRouter() {
 
                         <Route path={"/unidades"} element={<Unidades />} />
 
+                        <Route path={"/inscricao"} element={<Inscricao />} />
                     </Routes>
                     <Footer />
                 </Router>
