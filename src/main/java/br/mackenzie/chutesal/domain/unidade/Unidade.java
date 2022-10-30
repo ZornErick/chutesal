@@ -19,7 +19,6 @@ import java.util.List;
 public class Unidade {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
     private String nome;
     private Integer numero;
