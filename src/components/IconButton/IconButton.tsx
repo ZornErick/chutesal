@@ -17,7 +17,7 @@ export default ({icon, IconElement, text, action, className, transparent, ...pro
       <Button className={clsx(
           "w-36 text-gray-200 transition duration-75 hover:scale-110 flex gap-1 justify-center items-center",
           {
-            "bg-gray-700": transparent === false,
+            "bg-gray-700": transparent === false || !transparent,
             "bg-transparent": transparent === true
           }
       )} onClick={action} {...props} >

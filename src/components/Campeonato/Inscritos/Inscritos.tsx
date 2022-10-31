@@ -1,23 +1,61 @@
 import Table, {IColumnOption} from "../../Table/Table";
 import {Options} from "../../Options/Options";
-import {useState} from "react";
-
+import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import apiInstance from "../../../services/apit";
+import { toast } from "react-toastify";
+import { Text } from '../../Text/Text'
 interface IInscrito {
     id: number;
     nome: string;
     whatsapp: string;
-    idade: string | undefined;
-    dataNascimento: Date;
+    dataNascimento: string;
+    idade: number;
+    time: any;
 }
 
-export function Inscritos() {
-    const [toDelete, setToDelete] = useState<number | null>(null);
 
-    function getIdade(id: number) {
-        const dataNascimento = inscritos.find(inscrito => inscrito.id === id)?.dataNascimento;
-        if(dataNascimento) {
-            return (new Date().getFullYear() - dataNascimento.getFullYear()).toString();
+
+export function Inscritos() {
+    const { id } = useParams();
+    const [toDelete, setToDelete] = useState<number | null>(null);
+    const [inscritos, setInscritos] = useState<IInscrito[]>([]);
+
+
+    const fetchData = async () => {
+        try{
+            const {data} = await apiInstance.get<IInscrito[]>(`/inscrito`)
+            console.log({data});
+
+            const formmated = data?.map(({dataNascimento, id, nome, whatsapp, time}) => {
+                
+                
+                return {
+                    id,
+                    nome,
+                    whatsapp,
+                    dataNascimento,
+                    idade: getIdade(dataNascimento),
+                    time
+                }
+            }); 
+            setInscritos(formmated);
+        }catch(e){
+            toast.error('Não foi possível carregar os inscritos')
         }
+
+    }
+
+    function getIdade(dataNascimento: string) {
+        var today = new Date();
+        var birthDate = new Date(dataNascimento);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        } 
+
+        return age;
     }
 
     const headerOptions : IColumnOption[] = [
@@ -40,6 +78,7 @@ export function Inscritos() {
         {
             displayName: "Time",
             valueKey: "time",
+            transformCell: ({value}) => (<Text className="text-white" >{value ? value : "-"}</Text>),
             id: "time",
         },
         {
@@ -53,29 +92,9 @@ export function Inscritos() {
         },
     ];
 
-    const inscritos: IInscrito[] = [
-        {
-            id: 1,
-            nome: "Julio",
-            whatsapp: "11 99990-9750",
-            idade: "10",
-            dataNascimento: new Date("2002/08/26")
-        },
-        {
-            id: 2,
-            nome: "Erick",
-            whatsapp: "11 99990-9750",
-            idade: "20",
-            dataNascimento: new Date("2002/02/10")
-        },
-        {
-            id: 3,
-            nome: "Guilherme",
-            whatsapp: "11 99990-9750",
-            idade: "10",
-            dataNascimento: new Date("2001/10/30")
-        },
-    ]
+    useEffect(() => {
+        fetchData()
+    },[]);
 
     return (
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>

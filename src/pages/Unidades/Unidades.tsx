@@ -8,6 +8,7 @@ import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal/Modal";
 import { Thrash } from "../../assets/Icons/Thrash/Thrash"
+import { useNavigate } from "react-router-dom";
 
 
 interface IEndereco {
@@ -39,7 +40,7 @@ interface IData {
 export function Unidades() {
     const [unidades, setUnidades] = useState<IData[]>([]);
     const [toDelete, setToDelete] = useState<number | null>(null);
-
+    const navigate = useNavigate();
     const deleteUnidade = async (id : any) => {
         try{
             const { status, data } = await apiInstance.delete(`/unidade/${id}`)
@@ -124,7 +125,7 @@ export function Unidades() {
         />
         <main className={"flex flex-col items-center h-full my-12 mx-8"}>
             <div className={"flex w-full justify-between"}>
-                <Button className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
+                <Button onClick={() => navigate('create')} className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
                     <Plus />
                     Incluir
                 </Button>

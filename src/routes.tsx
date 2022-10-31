@@ -8,6 +8,8 @@ import {Inscricao} from "./pages/Inscricao/Inscricao";
 import CampeonatoCreateForm from "./components/Campeonato/CampeonatoCreateForm/CampeonatoCreateForm";
 import { GerenciarCampeonato } from "./pages/GerenciarCampeonato/GerenciarCampeonato";
 import { Unidades } from "./pages/Unidades/Unidades";
+import { LoginProvider } from "./hooks/useLogin";
+import UnidadeCreateForm from "./components/UnidadeCreateForm/UnidadeCreateForm";
 
 export function AppRouter() {
     return (
@@ -17,22 +19,23 @@ export function AppRouter() {
             position="top-center"
             progressStyle={{backgroundColor: "#7C7C8A"}}
             />
-            <main className={"flex flex-col h-screen justify-between"}>
-                <Router>
-                    <Menu />
-                    <Routes>
-                        <Route path={"/campeonatos"} element={<Campeonatos />} />
-                        <Route path={"/campeonatos/create"} element={<CampeonatoCreateForm />} />
-                        <Route path={"/campeonatos/:id"} element={<GerenciarCampeonato />}/>
-                        <Route path={"/campeonatos/:id/inscricao"} element={<Inscricao />}/>
-
-                        <Route path={"/unidades"} element={<Unidades />} />
-
-                        <Route path={"/inscricao"} element={<Inscricao />} />
-                    </Routes>
-                    <Footer />
-                </Router>
-            </main>
+            <LoginProvider>
+                <main className={"flex flex-col h-screen justify-between"}>
+                    <Router>
+                        <Menu />
+                        <Routes>
+                            <Route path={"/campeonatos"} element={<Campeonatos />} />
+                            <Route path={"/campeonatos/create"} element={<CampeonatoCreateForm />} />
+                            <Route path={"/campeonatos/:id"} element={<GerenciarCampeonato />}/>
+                            <Route path={"/campeonatos/:id/inscricao"} element={<Inscricao />}/>
+                            <Route path={"/unidades"} element={<Unidades />} />
+                            <Route path={"/unidades/create"} element={<UnidadeCreateForm />} />
+                        </Routes>
+                        <Footer />
+                    </Router>
+                </main>
+            </LoginProvider>
+            
         </>
     );
 }

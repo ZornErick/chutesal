@@ -3,6 +3,7 @@ import { Logo } from "../../assets/Icons/Logo/Logo";
 import { Exit } from "../../assets/Icons/Exit/Exit";
 import { Text } from "../Text/Text";
 import { useLogin } from "../../hooks/useLogin";
+import { LoginIcon } from "../../assets/Icons/Login/Login";
 
 export function Menu() {
     const routes = [
@@ -19,8 +20,8 @@ export function Menu() {
     const pathName = useLocation().pathname;
     const {logado, setLogado} = useLogin();
     return (
-        <nav className={"flex bg-gray-700 w-full h-14 items-center justify-between"}>
-            <NavLink to={"/"}><Logo className={"ml-6 hover:stroke-green-500"} /></NavLink>
+        <nav className={"flex bg-gray-700 w-full h-14 items-center justify-between px-5"}>
+            <NavLink to={"/"}><Logo className={"hover:stroke-green-500"} /></NavLink>
             <ul className={"flex h-full"}>
                 {routes.map((route, index) => (
                     <li key={index} className={"flex flex-col h-full items-center justify-between"}>
@@ -33,9 +34,9 @@ export function Menu() {
                     </li>
                 ))}
             </ul>
-            <button className={"flex mr-6 items-center"}>
-                <Exit onClick={() => setLogado((logado) => !logado)} />
-                <Text className={"text-gray-200 px-2 hover:text-white"}>Logout</Text>
+            <button onClick={() => setLogado((logado) => !logado)} className={"flex items-center w-[5%]"}>
+               {logado ? <Exit /> : <LoginIcon/>}
+                <Text className={"text-gray-200 px-2 hover:text-white"}>{logado ? "Logout" : "Login"}</Text>
             </button>
         </nav>
     );
