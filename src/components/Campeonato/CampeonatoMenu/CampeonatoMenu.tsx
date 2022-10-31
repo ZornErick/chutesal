@@ -2,7 +2,7 @@ import {Button} from "../../Button/Button";
 import {Text} from "../../Text/Text";
 import {Thrash} from "../../../assets/Icons/Thrash/Thrash";
 import {Save} from "../../../assets/Icons/Save/Save";
-import { IMenuElement } from "../../../pages/Manager/GerenciarCampeonato/GerenciarCampeonato";
+import { IMenuElement } from "../../../pages/GerenciarCampeonato/GerenciarCampeonato";
 
 
 interface IMenuProps {

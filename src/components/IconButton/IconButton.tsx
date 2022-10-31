@@ -6,7 +6,7 @@ interface IButtonIconProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   className?: string; 
   text: string;
   icon?: string;
-  IconElement?: React.ElementType;
+  IconElement?: any;
   transparent?: boolean;
   action?: (value?: any) => void;
 }

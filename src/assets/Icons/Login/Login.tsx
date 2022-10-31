@@ -32,3 +32,6 @@ export function LoginIcon (props : LoginSvgProps ) {
     </svg>
   )
 }
+
+
+export {}
