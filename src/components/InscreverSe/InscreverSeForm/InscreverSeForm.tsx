@@ -88,7 +88,6 @@ export function InscreverSeForm() {
                             name={"dataNascimento"}
                             footerText={"Data de nascimento"}
                             type="date"
-                            placeholder={""}
                         />
                     </div>
                     <div className={"flex justify-center"}>

@@ -148,7 +148,7 @@ export function Campeonatos() {
                         text={inscricaoDisponivel ? "Inscreva-se" : "Indisponível"}
                         IconElement={inscricaoDisponivel ? UserSignIn : DisabledCalendar}
                         disabled={!inscricaoDisponivel}
-                        className="bg-transparent"
+                        transparent={true}
                         action={inscricaoDisponivel ? () => navigate(`${id}/inscricao`) : () =>{}}
                     />)
                 },
@@ -162,6 +162,7 @@ export function Campeonatos() {
         fetchData();
     },[])
 
+    const justify = logado ? "justify-between" : "justify-end";
 
     return (
         <>
@@ -174,11 +175,15 @@ export function Campeonatos() {
             />
 
             <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-                <div className={"flex w-full justify-between"}>
-                    <Button onClick={() => navigate("create")} className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
-                        <Plus />
-                        Incluir
-                    </Button>
+                <div className={`flex w-full ${justify}`}>
+                    {logado ?
+                        <Button onClick={() => navigate("create")} className={"flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"}>
+                            <Plus />
+                            Incluir
+                        </Button>
+                        :
+                        ""
+                    }
                     <Filter filters={filterOptions} />
                 </div>
                 <Table
@@ -187,6 +192,5 @@ export function Campeonatos() {
                 />
             </main>
         </>
-        
     );
 }

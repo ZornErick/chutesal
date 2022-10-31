@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 
 
 interface IHookProps {
@@ -11,12 +11,11 @@ interface IUseLogin{
 }
 
 export const useLogin = () : IUseLogin => {
-  const [logado, setLogado] = useState<boolean>(false);
+  const [logado, setLogado] = useState<boolean>(true);
 
 
   return {
     logado,
     setLogado
   };
-
 }
