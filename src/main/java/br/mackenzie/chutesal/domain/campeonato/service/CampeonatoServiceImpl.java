@@ -4,6 +4,8 @@ import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.campeonato.CampeonatoForm;
 import br.mackenzie.chutesal.domain.campeonato.CampeonatoRepo;
 import br.mackenzie.chutesal.domain.campeonato.CampeonatoUpdateForm;
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
+import br.mackenzie.chutesal.domain.inscrito.InscritoRepo;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.jogo.JogoRepo;
 import br.mackenzie.chutesal.domain.time.Time;
@@ -28,13 +30,15 @@ public class CampeonatoServiceImpl implements CampeonatoService {
     private final UnidadeRepo unidadeRepo;
     private final JogoRepo jogoRepo;
     private final TimeRepo timeRepo;
+    private final InscritoRepo inscritoRepo;
 
     @Autowired
-    public CampeonatoServiceImpl(CampeonatoRepo campeonatoRepo, UnidadeRepo unidadeRepo, JogoRepo jogoRepo, TimeRepo timeRepo) {
+    public CampeonatoServiceImpl(CampeonatoRepo campeonatoRepo, UnidadeRepo unidadeRepo, JogoRepo jogoRepo, TimeRepo timeRepo, InscritoRepo inscritoRepo) {
         this.campeonatoRepo = campeonatoRepo;
         this.unidadeRepo = unidadeRepo;
         this.jogoRepo = jogoRepo;
         this.timeRepo = timeRepo;
+        this.inscritoRepo = inscritoRepo;
     }
 
     @Override
@@ -70,8 +74,9 @@ public class CampeonatoServiceImpl implements CampeonatoService {
         Optional<Campeonato> campeonato = campeonatoRepo.findById(id);
         List<Jogo> jogos = jogoRepo.findAllById(campeonatoUpdateForm.getJogosId());
         List<Time> times = timeRepo.findAllById(campeonatoUpdateForm.getTimesId());
+        List<Inscrito> inscritos = inscritoRepo.findAllById(campeonatoUpdateForm.getInscritosId());
         if(campeonato.isPresent()) {
-            return campeonatoUpdateForm.update(campeonato.get(), jogos, times);
+            return campeonatoUpdateForm.update(campeonato.get(), jogos, times, inscritos);
         }
         throw new NotFoundException("Campeonato " + id + " não encontrado!");
     }
@@ -95,5 +100,10 @@ public class CampeonatoServiceImpl implements CampeonatoService {
             throw new NotFoundException("Time " + timeId + " não encontrado!");
         }
         throw new NotFoundException("Campeonato " + campeonatoId + " não encontrado!");
+    }
+
+    @Override
+    public List<Inscrito> findInscritosByCampeonatoId(Long campeonatoId) {
+        return inscritoRepo.findAllByCampeonatoId(campeonatoId);
     }
 }

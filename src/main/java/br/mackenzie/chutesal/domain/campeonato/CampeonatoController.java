@@ -1,6 +1,8 @@
 package br.mackenzie.chutesal.domain.campeonato;
 
 import br.mackenzie.chutesal.domain.campeonato.service.CampeonatoService;
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
+import br.mackenzie.chutesal.domain.inscrito.InscritoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +51,11 @@ public class CampeonatoController {
     @DeleteMapping("/{id}")
     public void deleteCampeonatoById(@PathVariable("id") Long id) {
         campeonatoService.delete(id);
+    }
+
+    @GetMapping("/{id}/inscritos")
+    public ResponseEntity<List<InscritoDto>> readInscritosByCampeonatoId(@PathVariable("id") Long id) {
+        List<Inscrito> inscritos = campeonatoService.findInscritosByCampeonatoId(id);
+        return ResponseEntity.ok(new InscritoDto().convert(inscritos));
     }
 }
