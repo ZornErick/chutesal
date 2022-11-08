@@ -30,7 +30,9 @@ export function CampeonatoMenu({ menuOptions, selectedComponent, setSelected }: 
                     )}
                 </ul>
             </div>
-            <span className="h-[0.5px] bg-gray-400 w-full" />
+            <div className="flex justify-center items-center h-full w-full px-6">
+                <span className="h-[0.5px] w-full bg-gray-400"/>
+            </div>
             <div className={"flex flex-col gap-10"}>
                 <Button form="form-campeonato" className={"flex justify-around items-center w-28 transition duration-150 hover:scale-105 drop-shadow-md bg-gray-700 text-gray-200 text-lg font-normal font-sans"}>
                     <Save />

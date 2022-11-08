@@ -2,37 +2,15 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ICampeonato, StatusCampeonato } from "../../../pages/Campeonatos/Campeonatos";
+import {  StatusCampeonato } from "../../../pages/Campeonatos/Campeonatos";
 import apiInstance from "../../../services/apit";
 import Input from "../../Input/Input";
 import Select from "../../Select/Select";
 import ReactLoading from 'react-loading';
 import { convertToDateString } from "../../../helpers/date";
 import { IUnidade } from "../../../pages/Unidades/Unidades";
+import { ICampeonato, statusCampeonato } from "../../../pages/GerenciarCampeonato/GerenciarCampeonato";
 
-
-const statusCampeonato = [
-    {
-        id: 0,
-        stringId: "PLANEJADO",
-        nome:"Planejado"
-    },
-    {
-        id: 1,
-        stringId: "ANDAMENTO",
-        nome:"Em andamento"
-    },
-    {
-        id: 2,
-        stringId: "CANCELADO",
-        nome:"Cancelado"
-    },
-    {
-        id: 3,
-        stringId: "EXECUTADO",
-        nome:"Executado"
-    },
-];
 
 interface ICampeonatoFormProps{
     campeonato: ICampeonato | undefined
@@ -84,7 +62,8 @@ export function CampeonatoUpdateForm({ campeonato, fetchCampeonato }: ICampeonat
                 dataFinalJogos: convertToDateString(dataFinalJogos),
                 inicioDivulgacao: ii ,
                 jogosId: [],
-                timesId: []
+                timesId: [],
+                inscritosId: []
             });
 
             if(statusCode === 200){
@@ -93,7 +72,9 @@ export function CampeonatoUpdateForm({ campeonato, fetchCampeonato }: ICampeonat
             }
             
 
-        }catch(e){             
+        }catch(e){  
+            console.log(e);
+                       
             toast.error(`Não foi possível salvar as alterações`);
         }
         finally{

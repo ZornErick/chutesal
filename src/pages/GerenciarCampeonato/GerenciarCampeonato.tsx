@@ -7,17 +7,55 @@ import { VencedorNavIcon } from "../../assets/Icons/VencedorNavIcon/VencedorNavI
 import { CampeonatoMenu } from "../../components/Campeonato/CampeonatoMenu/CampeonatoMenu";
 import { CampeonatoUpdateForm } from "../../components/Campeonato/CampeonatoUpdateForm/CampeonatoUpdateForm";
 import './style.css'
-import {Inscritos} from "../../components/Campeonato/Inscritos/Inscritos";
+import {IInscrito, Inscritos} from "../../components/Campeonato/Inscritos/Inscritos";
 import { useParams } from "react-router-dom";
-import { ICampeonato } from "../Campeonatos/Campeonatos";
+import { StatusCampeonato } from "../Campeonatos/Campeonatos";
 import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
+import { IUnidade } from "../Unidades/Unidades";
+import TitleForm from "../../components/TitleForm/TitleForm";
 
+
+export const statusCampeonato = [
+    {
+        id: 0,
+        stringId: "PLANEJADO",
+        nome:"Planejado"
+    },
+    {
+        id: 1,
+        stringId: "ANDAMENTO",
+        nome:"Em andamento"
+    },
+    {
+        id: 2,
+        stringId: "CANCELADO",
+        nome:"Cancelado"
+    },
+    {
+        id: 3,
+        stringId: "EXECUTADO",
+        nome:"Executado"
+    },
+];
 
 export interface IMenuElement {
     element: JSX.Element;
     icon: JSX.Element;
     label: string;
+}
+
+export interface ICampeonato {
+    id: number;
+    nome: string;
+    dataInicialJogos : string;
+    dataFinalJogos: string;
+    dataInicialInscricao: string;
+    dataFinalInscricao: string;
+    inicioDivulgacao: string;
+    status: StatusCampeonato;
+    unidade: IUnidade;
+    inscritos: IInscrito[]
 }
 
 export function GerenciarCampeonato() {
@@ -26,12 +64,35 @@ export function GerenciarCampeonato() {
     const [component, setComponent] = useState<number>(1);
     const [campeonato, setCampeonato] = useState<ICampeonato>();
     
+    function getIdade(dataNascimento: string) {
+        var today = new Date();
+        var birthDate = new Date(dataNascimento);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        } 
+
+        return age;
+    }
+
+    
     const fetchData = async () => {
         try{
             const { data } = await apiInstance.get<ICampeonato>(`/campeonato/${idCampeonato}`);
             console.log({data});
             
-            setCampeonato(data);
+            const formattedInscritos = data?.inscritos?.map(({dataNascimento, ...rest}) => {
+                const idade = getIdade(dataNascimento);
+
+                return {
+                    ...rest,
+                    dataNascimento,
+                    idade,
+                }
+            });
+            console.log({data})
+            setCampeonato({...data, inscritos: formattedInscritos});
             
         }catch(e){
             console.log({e});
@@ -53,7 +114,7 @@ export function GerenciarCampeonato() {
         3:{
             label: "Inscritos",
             icon: <InscritoNavIcon />,
-            element: <Inscritos />
+            element: <Inscritos inscritos={campeonato?.inscritos || []} reFetch={fetchData}/>
         },
         4:{
             label: "Times",
@@ -72,13 +133,22 @@ export function GerenciarCampeonato() {
     }, []);
 
     return (
-        <div className="flex justify-between p-6 h-full items-center">
-            <CampeonatoMenu
-                menuOptions={componentsOptions}
-                selectedComponent={component}
-                setSelected={setComponent}
+        <div className="h-full w-full flex flex-col px-5">
+            <TitleForm
+                category="Campeonatos"
+                subcategory={campeonato?.nome || 'Buscando campeonato'}
+                returnRoute="/campeonatos"
             />
-            { componentsOptions[component]?.element }
+
+            <div className="flex justify-between p-6 h-full items-center">
+                <CampeonatoMenu
+                    menuOptions={componentsOptions}
+                    selectedComponent={component}
+                    setSelected={setComponent}
+                />
+                { componentsOptions[component]?.element }
+            </div>
         </div>
+        
     );
 }

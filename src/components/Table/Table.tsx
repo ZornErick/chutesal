@@ -22,17 +22,18 @@ export interface IColumnOption<T = any> {
 interface ITableProps 
 {
     columns : IColumnOption[],
-    data: any[]
+    data: any[],
+    hideTableHeaderLine?: boolean
 }
 
 
-const Table = ({columns, data} : ITableProps) => {
+const Table = ({columns, data, hideTableHeaderLine} : ITableProps) => {
 
 
     return (
             <div className={"w-full h-full mt-10"}>
                 <Header columns={columns}></Header>
-                <div className={"flex flex-col border-t-[1px] w-full h-full border-green-700 items-center"}>
+                <div className={`flex flex-col ${hideTableHeaderLine ? '' : 'border-t-[1px] border-green-700' } w-full h-full  items-center`}>
                     <TableBody
                         columns={columns}
                         data={data}

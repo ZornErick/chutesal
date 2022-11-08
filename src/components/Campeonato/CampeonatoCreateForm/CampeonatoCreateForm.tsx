@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Save } from "../../../assets/Icons/Save/Save";
 import { convertToDateString } from "../../../helpers/date";
-import { ICampeonato } from "../../../pages/Campeonatos/Campeonatos";
+import { ICampeonato } from "../../../pages/GerenciarCampeonato/GerenciarCampeonato";
 import { IUnidade } from "../../../pages/Unidades/Unidades";
 import apiInstance from "../../../services/apit";
 import IconButton from "../../IconButton/IconButton";

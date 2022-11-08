@@ -8,14 +8,15 @@ interface IButtonIconProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   icon?: string;
   IconElement?: any;
   transparent?: boolean;
+  width?: string;
   action?: (value?: any) => void;
 }
-export default ({icon, IconElement, text, action, className, transparent, ...props} : IButtonIconProps) => {
+export default ({icon, IconElement, text, action, className, transparent, width, ...props} : IButtonIconProps) => {
 
   return(
     <div className='flex'>
       <Button className={clsx(
-          "w-36 text-gray-200 transition duration-75 hover:scale-110 flex gap-1 justify-center items-center",
+          `${width || "w-36"} text-gray-200 transition duration-75 hover:scale-110 flex gap-1 justify-center items-center`,
           {
             "bg-gray-700": transparent === false || !transparent,
             "bg-transparent": transparent === true

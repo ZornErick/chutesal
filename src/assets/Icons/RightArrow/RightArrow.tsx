@@ -1,8 +1,12 @@
 import { SVGAttributes } from "react";
 
-interface RightArrowProps extends SVGAttributes<HTMLOrSVGElement> {}
+interface RightArrowProps extends SVGAttributes<HTMLOrSVGElement> {
+    stroke?: string;
 
-export function RightArrow(props: RightArrowProps) {
+    
+}
+
+export function RightArrow({stroke,  ...props}: RightArrowProps) {
     return (
         <svg
             width={32}
@@ -14,7 +18,7 @@ export function RightArrow(props: RightArrowProps) {
         >
             <path
                 d="M12 6l10 10-10 10"
-                stroke="#066"
+                stroke={stroke || "#066"}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"

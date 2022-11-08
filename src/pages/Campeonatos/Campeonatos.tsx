@@ -14,6 +14,7 @@ import IconButton from "../../components/IconButton/IconButton";
 import { UserSignIn } from "../../assets/Icons/UserSignIn/UserSignIn";
 import { DisabledCalendar } from "../../assets/Icons/DisabledCalendar/DisabledCalendar";
 import { useLogin } from "../../hooks/useLogin";
+import { ICampeonato } from "../GerenciarCampeonato/GerenciarCampeonato";
 
 
 export type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
@@ -23,17 +24,7 @@ interface IUnidade {
     nome: string;
 }
 
-export interface ICampeonato {
-    id: number;
-    nome: string;
-    dataInicialJogos : string;
-    dataFinalJogos: string;
-    dataInicialInscricao: string;
-    dataFinalInscricao: string;
-    inicioDivulgacao: string;
-    status: StatusCampeonato;
-    unidade: IUnidade;
-}
+
 
 interface IData {
     id: number;
