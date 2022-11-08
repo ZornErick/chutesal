@@ -30,4 +30,9 @@ public class Time {
 
     @ManyToMany
     private List<Jogo> jogos = new ArrayList<>();
+
+    public Time(String nome, Campeonato campeonato) {
+        this.nome = nome;
+        this.campeonato = campeonato;
+    }
 }
