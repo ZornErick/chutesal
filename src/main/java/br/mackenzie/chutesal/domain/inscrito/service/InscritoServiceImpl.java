@@ -1,5 +1,7 @@
 package br.mackenzie.chutesal.domain.inscrito.service;
 
+import br.mackenzie.chutesal.domain.campeonato.Campeonato;
+import br.mackenzie.chutesal.domain.campeonato.CampeonatoRepo;
 import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.inscrito.InscritoForm;
 import br.mackenzie.chutesal.domain.inscrito.InscritoRepo;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class InscritoServiceImpl implements InscritoService {
 
     private final InscritoRepo inscritoRepo;
+    private final CampeonatoRepo campeonatoRepo;
 
     @Autowired
-    public InscritoServiceImpl(InscritoRepo inscritoRepo) {
+    public InscritoServiceImpl(InscritoRepo inscritoRepo, CampeonatoRepo campeonatoRepo) {
         this.inscritoRepo = inscritoRepo;
+        this.campeonatoRepo = campeonatoRepo;
     }
 
 
@@ -43,7 +47,11 @@ public class InscritoServiceImpl implements InscritoService {
     @Override
     public Inscrito create(Form<Inscrito> form) {
         InscritoForm inscritoForm = (InscritoForm) form;
-        return inscritoRepo.save(inscritoForm.convert());
+        Optional<Campeonato> campeonato = campeonatoRepo.findById(inscritoForm.getCampeonatoId());
+        if(campeonato.isPresent()) {
+            return inscritoRepo.save(inscritoForm.convert(campeonato.get()));
+        }
+        throw new NotFoundException("Campeonato " + inscritoForm.getCampeonatoId() + " não encontrado!");
     }
 
     @Override

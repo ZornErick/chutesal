@@ -1,5 +1,6 @@
 package br.mackenzie.chutesal.domain.inscrito;
 
+import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.time.Time;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,14 @@ public class Inscrito {
     @ManyToOne
     private Time time;
 
-    public Inscrito(String nome, String apelido, String whatsapp, LocalDate dataNascimento) {
+    @ManyToOne
+    private Campeonato campeonato;
+
+    public Inscrito(String nome, String apelido, String whatsapp, LocalDate dataNascimento, Campeonato campeonato) {
         this.nome = nome;
         this.apelido = apelido;
         this.whatsapp = whatsapp;
         this.dataNascimento = dataNascimento;
+        this.campeonato = campeonato;
     }
 }
