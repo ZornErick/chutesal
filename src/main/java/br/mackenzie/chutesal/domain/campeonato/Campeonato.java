@@ -1,5 +1,6 @@
 package br.mackenzie.chutesal.domain.campeonato;
 
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.time.Time;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
@@ -43,6 +44,10 @@ public class Campeonato {
     @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Time> times = new ArrayList<>();
+
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Inscrito> inscritos = new ArrayList<>();
 
     public Campeonato(String nome,
                       LocalDate dataInicialInscricao, LocalDate dataFinalInscricao, LocalDate dataInicialJogos, LocalDate dataFinalJogos, LocalDate inicioDivulgacao,

@@ -1,5 +1,6 @@
 package br.mackenzie.chutesal.domain.campeonato;
 
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.time.Time;
 import br.mackenzie.chutesal.util.crud.UpdateForm;
@@ -37,8 +38,9 @@ public class CampeonatoUpdateForm implements UpdateForm<Campeonato> {
     private LocalDate inicioDivulgacao;
     private List<Long> jogosId;
     private List<Long> timesId;
+    private List<Long> inscritosId;
 
-    public Campeonato update(Campeonato entity, List<Jogo> jogos, List<Time> times) {
+    public Campeonato update(Campeonato entity, List<Jogo> jogos, List<Time> times, List<Inscrito> inscritos) {
         entity.setNome(this.nome);
         entity.setStatus(this.status);
         entity.setDataInicialInscricao(this.dataInicialInscricao);
@@ -47,6 +49,7 @@ public class CampeonatoUpdateForm implements UpdateForm<Campeonato> {
         entity.setDataFinalJogos(this.dataFinalJogos);
         entity.setJogos(jogos);
         entity.setTimes(times);
+        entity.setInscritos(inscritos);
 
         return entity;
     }

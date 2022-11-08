@@ -1,5 +1,6 @@
 package br.mackenzie.chutesal.domain.campeonato;
 
+import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.time.Time;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
@@ -32,6 +33,7 @@ public class CampeonatoDto {
     private Unidade unidade;
     private List<Jogo> jogos;
     private List<Time> times;
+    private List<Inscrito> inscritos;
 
     public CampeonatoDto(Campeonato campeonato) {
         this.id = campeonato.getId();
@@ -45,6 +47,7 @@ public class CampeonatoDto {
         this.unidade = campeonato.getUnidade();
         this.jogos = campeonato.getJogos();
         this.times = campeonato.getTimes();
+        this.inscritos = campeonato.getInscritos();
     }
 
     public List<CampeonatoDto> convert(List<Campeonato> campeonatos) {
