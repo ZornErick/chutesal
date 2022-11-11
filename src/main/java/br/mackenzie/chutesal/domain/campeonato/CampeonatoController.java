@@ -43,7 +43,7 @@ public class CampeonatoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CampeonatoDto> updateCampeonato(@PathVariable("id") Long id, @RequestBody @Valid CampeonatoUpdateForm campeonatoUpdateForm) {
+    public ResponseEntity<CampeonatoDto> updateCampeonatoById(@PathVariable("id") Long id, @RequestBody @Valid CampeonatoUpdateForm campeonatoUpdateForm) {
         Campeonato campeonato = campeonatoService.update(id, campeonatoUpdateForm);
         return ResponseEntity.ok(new CampeonatoDto(campeonato));
     }

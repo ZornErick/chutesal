@@ -33,4 +33,12 @@ public class Jogo {
 
     @ManyToMany(mappedBy = "jogos")
     private List<Time> times = new ArrayList<>(2);
+
+    public Jogo(LocalDate data, LocalDateTime horario, Campeonato campeonato, Quadra quadra, List<Time> times) {
+        this.data = data;
+        this.horario = horario;
+        this.campeonato = campeonato;
+        this.quadra = quadra;
+        this.times = times;
+    }
 }
