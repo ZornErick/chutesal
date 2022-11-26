@@ -29,11 +29,16 @@ public class JogoUpdateForm implements UpdateForm<Jogo> {
     @NotNull
     private List<Long> timesId;
 
+    private Integer placarA = 0;
+    private Integer placarB = 0;
+
     public Jogo update(Jogo entity, Campeonato campeonato, Quadra quadra, List<Time> times) {
         entity.setHorario(this.horario);
         entity.setCampeonato(campeonato);
         entity.setQuadra(quadra);
         entity.setTimes(times);
+        entity.setPlacarA(this.placarA);
+        entity.setPlacarB(this.placarB);
 
         return entity;
     }

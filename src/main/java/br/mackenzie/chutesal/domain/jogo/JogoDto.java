@@ -21,6 +21,8 @@ public class JogoDto {
     private Campeonato campeonato;
     private Quadra quadra;
     private List<Time> times;
+    private Integer placarA;
+    private Integer placarB;
 
     public JogoDto(Jogo jogo) {
         this.id = jogo.getId();
@@ -28,6 +30,8 @@ public class JogoDto {
         this.campeonato = jogo.getCampeonato();
         this.quadra = jogo.getQuadra();
         this.times = jogo.getTimes();
+        this.placarA = jogo.getPlacarA();
+        this.placarB = jogo.getPlacarB();
     }
 
     public List<JogoDto> convert(List<Jogo> jogos) {
