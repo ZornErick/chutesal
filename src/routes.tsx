@@ -10,6 +10,7 @@ import { GerenciarCampeonato } from "./pages/GerenciarCampeonato/GerenciarCampeo
 import { Unidades } from "./pages/Unidades/Unidades";
 import { LoginProvider } from "./hooks/useLogin";
 import UnidadeCreateForm from "./components/UnidadeCreateForm/UnidadeCreateForm";
+import {Jogos} from "./pages/Jogos/Jogos";
 
 export function AppRouter() {
     return (
@@ -30,6 +31,7 @@ export function AppRouter() {
                             <Route path={"/campeonatos/:id/inscricao"} element={<Inscricao />}/>
                             <Route path={"/unidades"} element={<Unidades />} />
                             <Route path={"/unidades/create"} element={<UnidadeCreateForm />} />
+                            <Route path={"/jogos"} element={<Jogos />} />
                         </Routes>
                         <Footer />
                     </Router>

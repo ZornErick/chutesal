@@ -10,6 +10,7 @@ import apiInstance from "../../../services/apit";
 import IconButton from "../../IconButton/IconButton";
 import Input from "../../Input/Input"
 import Select from "../../Select/Select"
+import TitleForm from "../../TitleForm/TitleForm";
 
 interface ISubmitProps{
   nomeCampeonato: string;
@@ -86,7 +87,11 @@ export default () => {
 
   return(
     <main className="flex flex-col gap-10 items-center h-full w-full">
-      <span className="h-[0.5px] mt-20 bg-green-700 w-full"/>
+        <TitleForm
+            category="Campeonatos"
+            subcategory={"Incluir campeonato"}
+            returnRoute="/campeonatos"
+        />
       <div className="flex w-4/5 justify-center h-2/5 items-center">
         <Formik
           initialValues={{
@@ -116,7 +121,7 @@ export default () => {
                           placeholder="Nome do Campeonato"
                       />
                     </div>
-                    
+
                     <div  className="w-2/5">
                       <Select
                           id="codigoUnidade"
@@ -126,7 +131,7 @@ export default () => {
                           options={unidades.map(({nome, id}) => ({value: id, label: nome}))}
                       />
                     </div>
-                  
+
                 </div>
               <div className="flex justify-between w-full">
                 <div className={"flex flex-col w-3/12"}>
@@ -172,11 +177,11 @@ export default () => {
                       className="text-center"
                   />
                 </div>
-              </div>  
               </div>
-              
+              </div>
+
             </div>
-              <IconButton 
+              <IconButton
                 className="p-2"
                 type="submit"
                 IconElement={Save}

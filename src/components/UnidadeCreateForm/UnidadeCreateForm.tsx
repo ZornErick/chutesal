@@ -8,6 +8,7 @@ import apiInstance from "../../services/apit";
 import IconButton from "../IconButton/IconButton"
 import Input from "../Input/Input"
 import Select from "../Select/Select";
+import TitleForm from "../TitleForm/TitleForm";
 
 interface IUf{
   id: number;
@@ -98,7 +99,11 @@ export default () => {
 
   return(
     <main className="flex flex-col gap-10 items-center h-full w-full">
-      <span className="h-[0.5px] mt-20 bg-green-700 w-full"/>
+        <TitleForm
+            category="Unidades"
+            subcategory={"Incluir unidade"}
+            returnRoute="/unidades"
+        />
       <div className="flex w-4/5 justify-center">
         <Formik
           initialValues={{
