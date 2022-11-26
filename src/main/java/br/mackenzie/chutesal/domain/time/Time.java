@@ -32,10 +32,15 @@ public class Time {
     private List<Inscrito> inscritos = new ArrayList<>();
 
     @ManyToMany
+    @JsonIgnore
     private List<Jogo> jogos = new ArrayList<>();
 
     public Time(String nome, Campeonato campeonato) {
         this.nome = nome;
         this.campeonato = campeonato;
+    }
+
+    public void addJogo(Jogo jogo) {
+        this.jogos.add(jogo);
     }
 }
