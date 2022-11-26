@@ -59,7 +59,7 @@ public class JogoServiceImpl implements JogoService {
         List<Time> times = timeRepo.findAllById(jogoForm.getTimesId());
         if(campeonato.isPresent() && quadra.isPresent()) {
             Jogo jogo = jogoForm.convert(campeonato.get(), quadra.get(), times);
-            jogoRepo.save(jogo);
+            return jogoRepo.save(jogo);
         }
         throw new NotFoundException("Quadra " + jogoForm.getQuadraId() + " não encontrada ou Campeonato " + jogoForm.getCampeonatoId() + " não encontrado!");
     }

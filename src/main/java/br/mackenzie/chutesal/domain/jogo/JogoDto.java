@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,8 +16,7 @@ import java.util.stream.Collectors;
 public class JogoDto {
 
     private Long id;
-    private LocalDate data;
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime horario;
     private Campeonato campeonato;
     private Quadra quadra;
@@ -26,7 +24,6 @@ public class JogoDto {
 
     public JogoDto(Jogo jogo) {
         this.id = jogo.getId();
-        this.data = jogo.getData();
         this.horario = jogo.getHorario();
         this.campeonato = jogo.getCampeonato();
         this.quadra = jogo.getQuadra();

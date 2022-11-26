@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,9 +20,7 @@ import java.util.List;
 @Setter
 public class JogoUpdateForm implements UpdateForm<Jogo> {
 
-    @NotNull @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate data;
-    @NotNull @JsonFormat(pattern = "HH:mm:ss")
+    @NotNull @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime horario;
     @NotNull
     private Long campeonatoId;
@@ -33,7 +30,6 @@ public class JogoUpdateForm implements UpdateForm<Jogo> {
     private List<Long> timesId;
 
     public Jogo update(Jogo entity, Campeonato campeonato, Quadra quadra, List<Time> times) {
-        entity.setData(this.data);
         entity.setHorario(this.horario);
         entity.setCampeonato(campeonato);
         entity.setQuadra(quadra);

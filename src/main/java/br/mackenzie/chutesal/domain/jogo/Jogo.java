@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ public class Jogo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate data;
     private LocalDateTime horario;
 
     @ManyToOne
@@ -34,8 +32,7 @@ public class Jogo {
     @ManyToMany(mappedBy = "jogos")
     private List<Time> times = new ArrayList<>(2);
 
-    public Jogo(LocalDate data, LocalDateTime horario, Campeonato campeonato, Quadra quadra, List<Time> times) {
-        this.data = data;
+    public Jogo(LocalDateTime horario, Campeonato campeonato, Quadra quadra, List<Time> times) {
         this.horario = horario;
         this.campeonato = campeonato;
         this.quadra = quadra;
