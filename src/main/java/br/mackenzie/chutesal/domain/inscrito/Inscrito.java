@@ -2,6 +2,7 @@ package br.mackenzie.chutesal.domain.inscrito;
 
 import br.mackenzie.chutesal.domain.campeonato.Campeonato;
 import br.mackenzie.chutesal.domain.time.Time;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class Inscrito {
     private LocalDate dataNascimento;
 
     @ManyToOne
+    @JsonIgnore
     private Time time;
 
     @ManyToOne
+    @JsonIgnore
     private Campeonato campeonato;
 
     public Inscrito(String nome, String apelido, String whatsapp, LocalDate dataNascimento, Campeonato campeonato) {
