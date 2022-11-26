@@ -1,33 +1,29 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState } from "react";
 
+interface IHookProps {}
 
-interface IHookProps {
-
+interface ILoginContextProps {
+  logado: boolean;
+  setLogado: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const LoginContext = createContext<ILoginContextProps>(
+  {} as ILoginContextProps
+);
 
-interface ILoginContextProps{
-  logado: boolean,
-  setLogado: React.Dispatch<React.SetStateAction<boolean>>
-}
+export const LoginProvider = ({ children }: { children: JSX.Element }) => {
+  const [logado, setLogado] = useState<boolean>(false);
 
-
-
-const LoginContext = createContext<ILoginContextProps>({} as ILoginContextProps);
-
-
-
-export const LoginProvider = ({ children } : {children: JSX.Element}) => {
-  const [logado, setLogado] = useState<boolean>(true);
-
-
-  return (<LoginContext.Provider value={{
-    logado,
-    setLogado
-  }}>
-    {children}
-  </LoginContext.Provider>)
-}
-
+  return (
+    <LoginContext.Provider
+      value={{
+        logado,
+        setLogado,
+      }}
+    >
+      {children}
+    </LoginContext.Provider>
+  );
+};
 
 export const useLogin = () => useContext(LoginContext);

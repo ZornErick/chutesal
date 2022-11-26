@@ -1,22 +1,22 @@
 import axios from "axios";
-import { Form, Formik, FormikHelpers } from "formik"
+import { Form, Formik, FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Save } from "../../assets/Icons/Save/Save"
+import { Save } from "../../assets/Icons/Save/Save";
 import { IUnidade } from "../../pages/Unidades/Unidades";
 import apiInstance from "../../services/apit";
-import IconButton from "../IconButton/IconButton"
-import Input from "../Input/Input"
+import IconButton from "../IconButton/IconButton";
+import Input from "../Input/Input";
 import Select from "../Select/Select";
 
-interface IUf{
+interface IUf {
   id: number;
   sigla: string;
   nome: string;
 }
 
-
-interface ISubmitProps{
+interface ISubmitProps {
   nomeUnidade: string;
   numeroUnidade: string;
   cep: string;
@@ -28,90 +28,86 @@ interface ISubmitProps{
 }
 
 export default () => {
-  const [ufs, setUfs] = useState<IUf[]>([]); 
+  const navigate = useNavigate();
+  const [ufs, setUfs] = useState<IUf[]>([]);
 
   const fetchUFs = async () => {
-    try{
-      const ufUrl = "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome";
-      
-      const { data }  = await axios.get(ufUrl);
+    try {
+      const ufUrl =
+        "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome";
+
+      const { data } = await axios.get(ufUrl);
 
       setUfs(data);
-    }catch(e){
-      toast.error('Não foi possível carregar a lista de estados')
+    } catch (e) {
+      toast.error("Não foi possível carregar a lista de estados");
     }
-  }
+  };
 
   useEffect(() => {
-    fetchUFs()
-  },[])
-
+    fetchUFs();
+  }, []);
 
   const onSubmit = async (
     {
-       nomeUnidade,
-       numeroUnidade,
-       cep,
-       logradouro,
-       numeroEndereco,
-       bairro,
-       cidade,
-       uf
-    } : ISubmitProps,
-    {
-        setSubmitting,
-    } : FormikHelpers<ISubmitProps>) => {
-        try{
-            
-            const { status: statusCode, data } = await apiInstance.post<IUnidade>(`/unidade`,
-            {
-                nome: nomeUnidade,
-                numero: numeroUnidade,
-                endereco:{
-                  cep,
-                  logradouro,
-                  numero: numeroEndereco,
-                  bairro,
-                  localidade: cidade,
-                  uf
-                },
-                quadrasId: [],
-                campeonatosId: []
-            });
-
-            console.log({data});
-            
-            if(statusCode === 201 && data){
-              toast.success(`Unidade cadastrada com sucesso`);
-              //navigate(`/campeonatos/${data.id}`)
-            }
-            
-
-        }catch(e){             
-            toast.error(`Não foi possível cadastrar o campeonato`);
+      nomeUnidade,
+      numeroUnidade,
+      cep,
+      logradouro,
+      numeroEndereco,
+      bairro,
+      cidade,
+      uf,
+    }: ISubmitProps,
+    { setSubmitting }: FormikHelpers<ISubmitProps>
+  ) => {
+    try {
+      const { status: statusCode, data } = await apiInstance.post<IUnidade>(
+        `/unidade`,
+        {
+          nome: nomeUnidade,
+          numero: numeroUnidade,
+          endereco: {
+            cep,
+            logradouro,
+            numero: numeroEndereco,
+            bairro,
+            localidade: cidade,
+            uf,
+          },
+          quadrasId: [],
+          campeonatosId: [],
         }
-        finally{
-            setSubmitting(false);
-        }
+      );
+
+      console.log({ data });
+
+      if (statusCode === 201 && data) {
+        toast.success(`Unidade cadastrada com sucesso`);
+        navigate(`/unidades/${data.id}`);
+      }
+    } catch (e) {
+      toast.error(`Não foi possível cadastrar a unidade`);
+    } finally {
+      setSubmitting(false);
     }
+  };
 
-
-  return(
+  return (
     <main className="flex flex-col gap-10 items-center h-full w-full">
-      <span className="h-[0.5px] mt-20 bg-green-700 w-full"/>
+      <span className="h-[0.5px] mt-20 bg-green-700 w-full" />
       <div className="flex w-4/5 justify-center">
         <Formik
           initialValues={{
-            nomeUnidade: '',
-            numeroUnidade: '',
+            nomeUnidade: "",
+            numeroUnidade: "",
 
-            cep: '',
-            logradouro: '',
-            numeroEndereco: '',
-            cidade: '',
-            bairro: '',
-            uf: '',
-
+            cep: "",
+            logradouro: "",
+            numeroEndereco: "",
+            cidade: "",
+            bairro: "",
+            uf: "",
           }}
           onSubmit={onSubmit}
         >
@@ -139,7 +135,7 @@ export default () => {
                     footerText="CEP"
                     placeholder="CEP"
                   />
-                </div>                     
+                </div>
               </div>
               <div className="flex flex-col h-1/4 w-2/5">
                 <Input
@@ -155,31 +151,34 @@ export default () => {
                     footerText="N° do Endereço"
                     placeholder="Número"
                   />
-                  
+
                   <Input
                     id="bairro"
                     name="bairro"
                     footerText="Bairro"
                     placeholder="Bairro da unidade"
                   />
-                  
+
                   <Input
                     id="cidade"
                     name="cidade"
                     footerText="Cidade"
                     placeholder="Cidade da unidade"
                   />
-                  
+
                   <Select
                     id="uf"
                     name="uf"
                     label="UF do Estado"
-                    options={ufs?.map(({nome, sigla}) => ({value: sigla, label: nome}))}
+                    options={ufs?.map(({ nome, sigla }) => ({
+                      value: sigla,
+                      label: nome,
+                    }))}
                   />
                 </div>
               </div>
             </div>
-            <IconButton 
+            <IconButton
               className="p-2"
               type="submit"
               IconElement={Save}
@@ -190,4 +189,4 @@ export default () => {
       </div>
     </main>
   );
-}
+};

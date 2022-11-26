@@ -130,6 +130,7 @@ export function GerenciarCampeonato() {
       element: (
         <Inscritos
           inscritos={campeonato?.inscritos || []}
+          times={campeonato?.times || []}
           reFetch={fetchData}
         />
       ),
