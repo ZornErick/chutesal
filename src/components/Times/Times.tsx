@@ -37,8 +37,8 @@ export default ({ times, reFetch }: TimesProps) => {
 
   return (
     <section className="w-full h-full flex p-6 justify-center gap-20 ">
-      <div className="w-2/5 flex flex-col justify-between  ">
-        <div className="flex items-center flex-col w-full gap-20 ">
+      <div className="w-2/5 flex flex-col justify-center">
+        <div className="flex items-center flex-col w-full h-96 gap-20 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-green-700 overflow-y-scroll">
           {times.map((time) => (
             <TimeLine
               key={time.id}
@@ -46,9 +46,6 @@ export default ({ times, reFetch }: TimesProps) => {
               deleteCallback={() => setToDelete(time.id)}
             />
           ))}
-        </div>
-        <div className="w-full flex items-center justify-center">
-          <p className="text-white">1-1</p>
         </div>
       </div>
 

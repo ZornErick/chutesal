@@ -5,6 +5,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import Input from "../../../components/Input/Input";
 import TitleForm from "../../../components/TitleForm/TitleForm";
 import apiInstance from "../../../services/apit";
+import { IUnidade } from "../Unidades";
 
 interface ISubmitProps {
   nomeUnidade: string;
@@ -70,7 +71,14 @@ export default () => {
         <div>
           <Formik
             initialValues={{
-              nomeTime: "",
+              nomeUnidade: "",
+              numeroUnidade: "",
+              numeroEndereco: "",
+              bairro: "",
+              cep: "",
+              cidade: "",
+              logradouro: "",
+              uf: "",
             }}
             onSubmit={onSubmit}
           >

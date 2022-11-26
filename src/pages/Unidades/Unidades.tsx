@@ -132,7 +132,6 @@ export function Unidades() {
             <Plus />
             Incluir
           </Button>
-          <Filter filters={filterOptions} />
         </div>
         <Table columns={headerOptions} data={unidades} />
       </main>

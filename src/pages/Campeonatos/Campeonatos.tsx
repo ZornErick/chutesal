@@ -1,4 +1,3 @@
-import { Filter } from "../../components/Filter/Filter";
 import { Button } from "../../components/Button/Button";
 import { Plus } from "../../assets/Icons/Plus/Plus";
 import { Options } from "../../components/Options/Options";
@@ -24,9 +23,7 @@ interface IUnidade {
     nome: string;
 }
 
-
-
-interface IData {
+export interface IData {
     id: number;
     nome: string;
     status: StatusCampeonato;
@@ -46,18 +43,18 @@ export function Campeonatos() {
     const deleteCampeonato = async (id : any) => {
         try{
             const { status, data } = await apiInstance.delete(`/campeonato/${id}`)
- 
+
             if(status === 200) {
                 toast.success(`Campeonato apagado com sucesso`)
                 fetchData()
             }
         } catch(e) {
-            console.log(e);            
+            console.log(e);
             toast.error(`Não foi possível apagar o campeonato`)
         } finally {
             setToDelete(null);
         }
-        
+
     }
 
     const fetchData = async () => {
@@ -131,7 +128,7 @@ export function Campeonatos() {
                 const now = new Date();
                 const inscricaoDisponivel = dataInicialInscricao < now && now < dataFinalInscricao;
                 return ( logado ?
-                    <Options 
+                    <Options
                         editCallback={() => navigate(`${id}`)} 
                         deleteCallback={() => setToDelete(id)}
                     /> :
@@ -146,8 +143,6 @@ export function Campeonatos() {
             id: "opcoes",
         },     
     ];
-
-    const filterOptions = ["Nome", "Inscrições", "Duração"];
 
     useEffect(() => {
         fetchData();
@@ -175,7 +170,6 @@ export function Campeonatos() {
                         :
                         ""
                     }
-                    <Filter filters={filterOptions} />
                 </div>
                 <Table
                     columns={headerOptions}

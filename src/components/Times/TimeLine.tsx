@@ -10,7 +10,7 @@ interface ITimeLineProps {
 
 export default ({ time: { id, nome }, deleteCallback }: ITimeLineProps) => {
   return (
-    <div className="w-2/6 flex justify-between border-b border-b-gray-500">
+    <div className="w-3/6 flex justify-between border-b border-b-gray-500">
       <Text size="md" className="text-white">
         {nome}
       </Text>
