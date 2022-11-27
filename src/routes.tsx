@@ -11,6 +11,7 @@ import { Unidades } from "./pages/Unidades/Unidades";
 import { LoginProvider } from "./hooks/useLogin";
 import UnidadeCreateForm from "./components/UnidadeCreateForm/UnidadeCreateForm";
 import UnidadeEditForm from "./pages/Unidades/UnidadeEditForm/UnidadeEditForm";
+import { Jogos } from "./pages/Jogos/Jogos";
 
 export function AppRouter() {
   return (
@@ -44,6 +45,7 @@ export function AppRouter() {
                 path={"/unidades/create"}
                 element={<UnidadeCreateForm />}
               />
+              <Route path={"/jogos"} element={<Jogos />} />
             </Routes>
             <Footer />
           </Router>

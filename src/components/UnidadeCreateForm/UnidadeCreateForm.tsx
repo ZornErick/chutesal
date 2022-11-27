@@ -11,7 +11,7 @@ import Input from "../Input/Input";
 import Select from "../Select/Select";
 import TitleForm from "../TitleForm/TitleForm";
 
-interface IUf {
+export interface IUf {
   id: number;
   sigla: string;
   nome: string;

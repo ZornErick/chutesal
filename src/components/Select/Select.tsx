@@ -9,6 +9,7 @@ interface ISelectProps extends React.HTMLProps<HTMLInputElement> {
   placeholder?: string;
   className?: string;
   undefinedLabel?: string;
+  containerWidth?: string;
   options: { label: string; value: number | string }[];
 }
 export default ({
@@ -19,14 +20,19 @@ export default ({
   placeholder,
   options,
   className,
+  containerWidth,
   ...rest
 }: ISelectProps) => {
   return (
-    <div className={`flex flex-col p-5 w-full ${className}`}>
+    <div
+      className={`flex flex-col p-5 ${
+        containerWidth ? containerWidth : "w-full"
+      } ${className}`}
+    >
       <Field
         defaultValue={2}
         as="select"
-        className="w-full  disabled:text-gray-400 text-xs p-1 bg-transparent outline-0 text-white placeholder-white border-b border-b-gray-400"
+        className="w-full h-full disabled:text-gray-400 text-xs p-1 bg-transparent outline-0 text-white placeholder-white border-b border-b-gray-400"
         id={id}
         name={name}
         placeholder={placeholder}

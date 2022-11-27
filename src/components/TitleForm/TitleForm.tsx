@@ -31,13 +31,14 @@ export default ({
   returnRoute,
 }: ITitleProps) => {
   const navigate = useNavigate();
+
   return (
     <div className="flex flex-col mt-4 justify-between h-1/5 px-5 w-full">
       <div className="flex items-center gap-2 h-full">
         <TitleBox text={category} />
         <TitleBox
           text={subcategory}
-          removeArrow={(underTitles?.length || 0) > 0}
+          removeArrow={(underTitles?.length || 0) === 0}
         />
         {underTitles?.map((title, i) => (
           <TitleBox text={title} removeArrow={i + 1 === underTitles.length} />
