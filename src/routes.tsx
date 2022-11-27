@@ -12,6 +12,7 @@ import { LoginProvider } from "./hooks/useLogin";
 import UnidadeCreateForm from "./components/UnidadeCreateForm/UnidadeCreateForm";
 import UnidadeEditForm from "./pages/Unidades/UnidadeEditForm/UnidadeEditForm";
 import { Jogos } from "./pages/Jogos/Jogos";
+import {CampeonatoInfo} from "./components/Campeonato/CampeonatoInfo/CampeonatoInfo";
 
 export function AppRouter() {
   return (
@@ -46,6 +47,7 @@ export function AppRouter() {
                 element={<UnidadeCreateForm />}
               />
               <Route path={"/jogos"} element={<Jogos />} />
+              <Route path={"/jogos/infos"} element={<CampeonatoInfo />} />
             </Routes>
             <Footer />
           </Router>
