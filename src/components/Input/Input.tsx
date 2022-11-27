@@ -9,6 +9,7 @@ interface IInputProps extends React.HTMLProps<HTMLInputElement> {
   containerWidth?: string;
   placeholder?: string;
   removeFooter?: boolean;
+  disabledColor?: string;
   footerText?: string;
 }
 export default ({
@@ -20,6 +21,7 @@ export default ({
   removeFooter,
   containerWidth,
   footerText,
+  disabledColor,
   ...rest
 }: IInputProps) => {
   return (
@@ -37,7 +39,9 @@ export default ({
         </label>
       )}
       <Field
-        className={`w-full disabled:text-gray-400 text-xs p-1 bg-transparent outline-0	text-white placeholder-gray-500 border-b border-b-gray-400 ${
+        className={`w-full disabled:${
+          disabledColor ? disabledColor : "text-gray-400"
+        } text-xs p-1 bg-transparent outline-0	text-white placeholder-gray-500 border-b border-b-gray-400 ${
           className || ""
         }`}
         id={id}

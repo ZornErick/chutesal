@@ -6,8 +6,9 @@ import IconButton from "../IconButton/IconButton";
 interface ITitleProps {
   category: string;
   subcategory: string;
-  underTitles?: string[];
+  underTitles?: (string | undefined)[];
   returnRoute: string;
+  navigateState?: any;
 }
 
 interface IBoxProps {
@@ -29,6 +30,7 @@ export default ({
   subcategory,
   underTitles,
   returnRoute,
+  navigateState,
 }: ITitleProps) => {
   const navigate = useNavigate();
 
@@ -41,7 +43,11 @@ export default ({
           removeArrow={(underTitles?.length || 0) === 0}
         />
         {underTitles?.map((title, i) => (
-          <TitleBox text={title} removeArrow={i + 1 === underTitles.length} />
+          <TitleBox
+            key={`${title || "title"}-${i}`}
+            text={title!}
+            removeArrow={i + 1 === underTitles.length}
+          />
         ))}
       </div>
       <div className="flex flex-col gap-3 w-full">
@@ -49,7 +55,7 @@ export default ({
           text="Voltar"
           width="w-24"
           IconElement={LeftArrow}
-          action={() => navigate(returnRoute)}
+          action={() => navigate(returnRoute, { state: navigateState })}
         />
         <span className="h-[0.5px] w-full bg-green-700" />
       </div>

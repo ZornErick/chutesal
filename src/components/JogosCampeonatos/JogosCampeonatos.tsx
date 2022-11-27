@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Plus } from "../../assets/Icons/Plus/Plus";
 import { Thrash } from "../../assets/Icons/Thrash/Thrash";
 import { convertToDateString } from "../../helpers/date";
+import { ICampeonato } from "../../pages/GerenciarCampeonato/GerenciarCampeonato";
 import { IJogo } from "../../pages/Jogos/Jogos";
 import apiInstance from "../../services/apit";
+import { Button } from "../Button/Button";
 import Modal from "../Modal/Modal";
 import { Options } from "../Options/Options";
 import Table, { IColumnOption } from "../Table/Table";
 import { Text } from "../Text/Text";
 import TitleForm from "../TitleForm/TitleForm";
 
-export default () => {
+interface IProps {
+  campeonato?: ICampeonato;
+}
+
+export default ({ campeonato }: IProps) => {
   const [jogos, setJogos] = useState<IJogo[]>([]);
   const [toDelete, setToDelete] = useState<number | string | null>(null);
   const navigate = useNavigate();
@@ -125,7 +132,14 @@ export default () => {
       transformCell: ({ value: id }) => {
         return (
           <Options
-            editCallback={() => navigate(`${id}`)}
+            editCallback={() =>
+              navigate(`/jogos/${id}`, {
+                state: {
+                  idCampeonato: campeonato?.id,
+                  nomeCampeonato: campeonato?.nome,
+                },
+              })
+            }
             deleteCallback={() => setToDelete(id)}
           />
         );
@@ -139,7 +153,7 @@ export default () => {
   }, []);
 
   return (
-    <section className="flex justify-center h-full w-full">
+    <section className="flex flex-col justify-center items-center h-full w-full">
       <Modal
         open={toDelete !== null}
         Icon={Thrash}
@@ -153,6 +167,23 @@ export default () => {
         columns={headerOptions}
         data={jogos}
       />
+
+      <Button
+        className={
+          "flex justify-center w-32 gap-2 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"
+        }
+        onClick={() =>
+          navigate("/jogos/create", {
+            state: {
+              idCampeonato: campeonato?.id,
+              nomeCampeonato: campeonato?.nome,
+            },
+          })
+        }
+      >
+        <Plus />
+        Novo Jogo
+      </Button>
     </section>
   );
 };

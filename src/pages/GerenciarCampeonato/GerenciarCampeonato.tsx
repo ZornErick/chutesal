@@ -11,14 +11,14 @@ import {
   IInscrito,
   Inscritos,
 } from "../../components/Campeonato/Inscritos/Inscritos";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { StatusCampeonato } from "../Campeonatos/Campeonatos";
 import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
 import { IUnidade } from "../Unidades/Unidades";
 import TitleForm from "../../components/TitleForm/TitleForm";
 import Times, { ITime } from "../../components/Times/Times";
-import {IJogo} from "../Jogos/Jogos";
+import { IJogo } from "../Jogos/Jogos";
 import JogosCampeonatos from "../../components/JogosCampeonatos/JogosCampeonatos";
 
 export const statusCampeonato = [
@@ -47,7 +47,8 @@ export const statusCampeonato = [
 export interface IMenuElement {
   element: JSX.Element;
   icon: JSX.Element;
-  label: string;
+  label?: string;
+  removeTitle?: boolean;
 }
 
 export interface ICampeonato {
@@ -67,8 +68,8 @@ export interface ICampeonato {
 
 export function GerenciarCampeonato() {
   const { id: idCampeonato } = useParams();
-
-  const [component, setComponent] = useState<number>(1);
+  const { state } = useLocation();
+  const [component, setComponent] = useState<number>(state?.selected || 1);
   const [campeonato, setCampeonato] = useState<ICampeonato>();
 
   function getIdade(dataNascimento: string) {
@@ -114,6 +115,7 @@ export function GerenciarCampeonato() {
   const componentsOptions: { [key: number]: IMenuElement } = {
     1: {
       label: "Campeonato",
+      removeTitle: true,
       icon: <CampeonatoNavIcon />,
       element: (
         <CampeonatoUpdateForm
@@ -125,7 +127,7 @@ export function GerenciarCampeonato() {
     2: {
       label: "Jogos",
       icon: <JogoNavIcon />,
-      element: <JogosCampeonatos />,
+      element: <JogosCampeonatos campeonato={campeonato} />,
     },
     3: {
       label: "Inscritos",
@@ -159,6 +161,11 @@ export function GerenciarCampeonato() {
       <TitleForm
         category="Campeonatos"
         subcategory={campeonato?.nome || "Buscando campeonato"}
+        underTitles={
+          componentsOptions[component]?.removeTitle
+            ? []
+            : [componentsOptions[component]?.label]
+        }
         returnRoute="/campeonatos"
       />
 
