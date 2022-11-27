@@ -25,9 +25,10 @@ export interface IJogo {
 interface JogosProps {
     className?: string;
     campeonatoId?: number | string;
+    headerOptionsPerso?: IColumnOption<IJogo>[];
 }
 
-export function Jogos({className, campeonatoId}: JogosProps) {
+export function Jogos({className, campeonatoId, headerOptionsPerso}: JogosProps) {
     const [jogos, setJogos] = useState<IJogo[]>([]);
 
     const fetchData = async () => {
@@ -122,7 +123,7 @@ export function Jogos({className, campeonatoId}: JogosProps) {
             className
         )}>
             <Table
-                columns={headerOptions}
+                columns={headerOptionsPerso ? headerOptionsPerso : headerOptions}
                 data={jogos}
             />
         </main>
