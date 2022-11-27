@@ -35,4 +35,8 @@ public class Quadra {
         this.unidade = unidade;
         this.jogos = jogos;
     }
+
+    public void deleteJogos() {
+        this.jogos.clear();
+    }
 }

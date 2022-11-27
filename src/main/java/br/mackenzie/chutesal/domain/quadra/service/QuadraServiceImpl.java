@@ -2,6 +2,7 @@ package br.mackenzie.chutesal.domain.quadra.service;
 
 import br.mackenzie.chutesal.domain.jogo.Jogo;
 import br.mackenzie.chutesal.domain.jogo.JogoRepo;
+import br.mackenzie.chutesal.domain.jogo.service.JogoService;
 import br.mackenzie.chutesal.domain.quadra.*;
 import br.mackenzie.chutesal.domain.unidade.Unidade;
 import br.mackenzie.chutesal.domain.unidade.UnidadeRepo;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,12 +24,14 @@ public class QuadraServiceImpl implements QuadraService {
     private final QuadraRepo quadraRepo;
     private final UnidadeRepo unidadeRepo;
     private final JogoRepo jogoRepo;
+    private final JogoService jogoService;
 
     @Autowired
-    public QuadraServiceImpl(QuadraRepo quadraRepo, UnidadeRepo unidadeRepo, JogoRepo jogoRepo) {
+    public QuadraServiceImpl(QuadraRepo quadraRepo, UnidadeRepo unidadeRepo, JogoRepo jogoRepo, JogoService jogoService) {
         this.quadraRepo = quadraRepo;
         this.unidadeRepo = unidadeRepo;
         this.jogoRepo = jogoRepo;
+        this.jogoService = jogoService;
     }
 
     @Override
@@ -79,6 +83,9 @@ public class QuadraServiceImpl implements QuadraService {
     public void delete(Long id) {
         Optional<Quadra> quadra = quadraRepo.findById(id);
         if(quadra.isPresent()) {
+            List<Long> jogos = quadra.get().getJogos().stream().map(Jogo::getId).collect(Collectors.toList());
+            jogos.forEach(jogoService::delete);
+            quadra.get().deleteJogos();
             quadraRepo.delete(quadra.get());
         } else {
             throw new NotFoundException("Quadra " + id + " não encontrada!");

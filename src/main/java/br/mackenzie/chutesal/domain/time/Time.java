@@ -43,4 +43,8 @@ public class Time {
     public void addJogo(Jogo jogo) {
         this.jogos.add(jogo);
     }
+
+    public void deleteJogo(Jogo jogo) {
+        this.jogos.remove(jogo);
+    }
 }

@@ -86,6 +86,8 @@ public class JogoServiceImpl implements JogoService {
     public void delete(Long id) {
         Optional<Jogo> jogo = jogoRepo.findById(id);
         if(jogo.isPresent()) {
+            List<Time> jogoTimes = jogo.get().getTimes();
+            jogoTimes.forEach(jogoTime -> jogoTime.deleteJogo(jogo.get()));
             jogoRepo.delete(jogo.get());
         } else {
             throw new NotFoundException("Jogo " + id + " não encontrado!");
