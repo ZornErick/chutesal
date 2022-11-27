@@ -3,6 +3,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Cancel } from "../../../assets/Icons/Cancel/Cancel";
 import { Plus } from "../../../assets/Icons/Plus/Plus";
 import { Save } from "../../../assets/Icons/Save/Save";
 import { Thrash } from "../../../assets/Icons/Thrash/Thrash";
@@ -32,6 +33,7 @@ export default () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [unidade, setUnidade] = useState<IUnidade>({} as IUnidade);
+  const [createQuadra, setCreateQuadra] = useState<boolean>(false);
   const [toDelete, setToDelete] = useState<string | number | null>(null);
   const [ufs, setUfs] = useState<IUf[]>([]);
 
@@ -92,6 +94,7 @@ export default () => {
     { setSubmitting }: FormikHelpers<ISubmitProps>
   ) => {
     try {
+      setSubmitting(true);
       const toSend = {
         nome: nomeUnidade,
         numero: numeroUnidade,
@@ -131,6 +134,9 @@ export default () => {
     fetchUFs();
   }, []);
 
+  useEffect(() => {
+    setCreateQuadra(false);
+  }, [unidade]);
   return (
     <section className="flex flex-col w-full h-full gap-5">
       <Modal
@@ -142,7 +148,7 @@ export default () => {
       />
       <TitleForm
         category="Unidades"
-        subcategory="Editar Unidade"
+        subcategory={unidade?.nome || "Editar"}
         returnRoute="/unidades"
       />
       <div className="flex w-full">
@@ -237,16 +243,31 @@ export default () => {
         </div>
         <div className="flex flex-col justify-center items-center gap-5 w-2/4 h-full px-40">
           <QuadraSlider
-            quadras={unidade?.quadras || []}
+            quadras={
+              createQuadra
+                ? [{ create: true }]
+                : unidade?.quadras?.map((q) => ({ quadra: q })) || []
+            }
             unidade={unidade?.id}
+            reFetch={fetchUnidade}
           />
           <Button
             className={
-              "flex justify-around w-24 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"
+              "flex  justify-center w-28 gap-2 hover:scale-105 drop-shadow-md h-10 rounded-lg items-center bg-gray-700 text-gray-200 font-sans"
             }
+            onClick={() => setCreateQuadra((actual) => !actual)}
           >
-            <Plus />
-            Incluir
+            {createQuadra ? (
+              <>
+                <Cancel width={18} height={18} />
+                Cancelar
+              </>
+            ) : (
+              <>
+                <Plus />
+                Incluir
+              </>
+            )}
           </Button>
         </div>
       </div>
@@ -265,6 +286,7 @@ export default () => {
         <IconButton
           className="p-2"
           type="submit"
+          action={() => setToDelete(unidade?.id || null)}
           IconElement={Thrash}
           text="Excluir"
         />

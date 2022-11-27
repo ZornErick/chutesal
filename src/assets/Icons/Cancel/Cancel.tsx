@@ -1,7 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
 interface CancelProps extends React.SVGAttributes<HTMLOrSVGElement> {}
-
 
 export const Cancel = (props: CancelProps) => {
   return (
@@ -16,10 +15,10 @@ export const Cancel = (props: CancelProps) => {
       <path
         d="M25.56 7l-18 18M25.56 25l-18-18"
         stroke="#066"
-        strokeWidth={2}
+        strokeWidth={3}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
