@@ -24,7 +24,7 @@ export interface IJogo {
 
 interface JogosProps {
     className?: string;
-    campeonatoId?: number;
+    campeonatoId?: number | string;
 }
 
 export function Jogos({className, campeonatoId}: JogosProps) {

@@ -47,7 +47,7 @@ export function AppRouter() {
                 element={<UnidadeCreateForm />}
               />
               <Route path={"/jogos"} element={<Jogos />} />
-              <Route path={"/jogos/infos"} element={<CampeonatoInfo />} />
+              <Route path={"/campeonatos/infos/:id"} element={<CampeonatoInfo />} />
             </Routes>
             <Footer />
           </Router>
