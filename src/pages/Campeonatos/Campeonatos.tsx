@@ -7,13 +7,14 @@ import apiInstance from "../../services/apit";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal/Modal";
 import { Thrash } from '../../assets/Icons/Thrash/Thrash'
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { convertToDate } from "../../helpers/date";
 import IconButton from "../../components/IconButton/IconButton";
 import { UserSignIn } from "../../assets/Icons/UserSignIn/UserSignIn";
 import { DisabledCalendar } from "../../assets/Icons/DisabledCalendar/DisabledCalendar";
 import { useLogin } from "../../hooks/useLogin";
 import { ICampeonato } from "../GerenciarCampeonato/GerenciarCampeonato";
+import {Text} from "../../components/Text/Text";
 
 
 export type  StatusCampeonato = "PLANEJADO"  | "ANDAMENTO" | "CANCELADO" | "EXECUTADO"
@@ -96,6 +97,7 @@ export function Campeonatos() {
         {
             displayName: "Nome",
             valueKey: "nome",
+            transformCell: ({value, rowObject: {id}}) => (<Link to={`infos/${id}`}><Text className={"text-white border-b-white border-b-[1px]"}>{value || ""}</Text></Link>),
             id: "nome",
             className: "justify-start"
         },

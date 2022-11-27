@@ -50,8 +50,10 @@ export function AppRouter() {
               <Route path={"/jogos"} element={<Jogos />} />
               <Route path={"/jogos/create"} element={<JogoForm />} />
               <Route path={"/jogos/:id"} element={<JogoForm />} />
-
-              <Route path={"/jogos/infos"} element={<CampeonatoInfo />} />
+              <Route
+                path={"/campeonatos/infos/:id"}
+                element={<CampeonatoInfo />}
+              />
             </Routes>
             <Footer />
           </Router>
