@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { IUnidade } from "../Unidades/Unidades";
 import TitleForm from "../../components/TitleForm/TitleForm";
 import Times, { ITime } from "../../components/Times/Times";
+import JogosCampeonatos from "../../components/JogosCampeonatos/JogosCampeonatos";
 
 export const statusCampeonato = [
   {
@@ -122,7 +123,7 @@ export function GerenciarCampeonato() {
     2: {
       label: "Jogos",
       icon: <JogoNavIcon />,
-      element: <></>,
+      element: <JogosCampeonatos />,
     },
     3: {
       label: "Inscritos",

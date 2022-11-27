@@ -1,28 +1,36 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Thrash } from "../../assets/Icons/Thrash/Thrash";
+import { convertToDateString } from "../../helpers/date";
+import { IJogo } from "../../pages/Jogos/Jogos";
 import apiInstance from "../../services/apit";
-import Table, { IColumnOption } from "../../components/Table/Table";
-import { ITime } from "../../components/Times/Times";
-import { ICampeonato } from "../GerenciarCampeonato/GerenciarCampeonato";
-import { Text } from "../../components/Text/Text";
-import { convertToDate, convertToDateString } from "../../helpers/date";
+import Modal from "../Modal/Modal";
+import { Options } from "../Options/Options";
+import Table, { IColumnOption } from "../Table/Table";
+import { Text } from "../Text/Text";
+import TitleForm from "../TitleForm/TitleForm";
 
-export interface IJogo {
-  id: number;
-  horario: string;
-  data: string;
-  hora: string;
-  timeA: ITime;
-  timeB: ITime;
-  placarA: number;
-  placarB: number;
-  campeonato: ICampeonato;
-  quadra: string;
-  times: ITime[];
-}
-
-export function Jogos() {
+export default () => {
   const [jogos, setJogos] = useState<IJogo[]>([]);
+  const [toDelete, setToDelete] = useState<number | string | null>(null);
+  const navigate = useNavigate();
+
+  const deleteJogo = async (id: any) => {
+    try {
+      const { status, data } = await apiInstance.delete(`/jogo/${id}`);
+
+      if (status === 200) {
+        toast.success(`Jogo excluido com sucesso`);
+        fetchData();
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error(`Não foi possível excluir o jogo`);
+    } finally {
+      setToDelete(null);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -76,6 +84,7 @@ export function Jogos() {
     {
       displayName: "Placar A x B",
       valueKey: "placarA",
+      width: "w-44",
       transformCell: ({ rowObject: { placarA, placarB } }) => (
         <Text className={"text-white"}>
           {placarA} x {placarB}
@@ -86,6 +95,8 @@ export function Jogos() {
     {
       displayName: "Data",
       valueKey: "data",
+      width: "w-44",
+
       transformCell: ({ value }) => (
         <Text className={"text-white"}>
           {convertToDateString(value)?.replaceAll("-", "/")}
@@ -95,6 +106,7 @@ export function Jogos() {
     },
     {
       displayName: "Horario",
+      width: "w-44",
       valueKey: "hora",
       id: "hora",
     },
@@ -106,6 +118,20 @@ export function Jogos() {
       ),
       id: "quadra",
     },
+    {
+      displayName: "Opções",
+      type: "action",
+      valueKey: "id",
+      transformCell: ({ value: id }) => {
+        return (
+          <Options
+            editCallback={() => navigate(`${id}`)}
+            deleteCallback={() => setToDelete(id)}
+          />
+        );
+      },
+      id: "opcoes",
+    },
   ];
 
   useEffect(() => {
@@ -113,8 +139,20 @@ export function Jogos() {
   }, []);
 
   return (
-    <main className={"flex flex-col items-center h-full my-12 mx-8"}>
-      <Table columns={headerOptions} data={jogos} />
-    </main>
+    <section className="flex justify-center h-full w-full">
+      <Modal
+        open={toDelete !== null}
+        Icon={Thrash}
+        modalText="Deseja excluir o o jogo?"
+        confirmAction={() => deleteJogo(toDelete)}
+        cancelAction={() => setToDelete(null)}
+      />
+      <Table
+        removeMargin
+        hideTableHeaderLine
+        columns={headerOptions}
+        data={jogos}
+      />
+    </section>
   );
-}
+};
