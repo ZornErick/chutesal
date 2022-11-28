@@ -1,9 +1,6 @@
 package br.mackenzie.chutesal.domain.campeonato.service;
 
-import br.mackenzie.chutesal.domain.campeonato.Campeonato;
-import br.mackenzie.chutesal.domain.campeonato.CampeonatoForm;
-import br.mackenzie.chutesal.domain.campeonato.CampeonatoRepo;
-import br.mackenzie.chutesal.domain.campeonato.CampeonatoUpdateForm;
+import br.mackenzie.chutesal.domain.campeonato.*;
 import br.mackenzie.chutesal.domain.inscrito.Inscrito;
 import br.mackenzie.chutesal.domain.inscrito.InscritoRepo;
 import br.mackenzie.chutesal.domain.jogo.Jogo;
@@ -105,5 +102,18 @@ public class CampeonatoServiceImpl implements CampeonatoService {
     @Override
     public List<Inscrito> findInscritosByCampeonatoId(Long campeonatoId) {
         return inscritoRepo.findAllByCampeonatoId(campeonatoId);
+    }
+
+    @Override
+    public Campeonato insertVencedores(Long id, UpdateForm<Campeonato> updateForm) {
+        InsertVencedorForm vencedorUpdateForm = (InsertVencedorForm) updateForm;
+        Optional<Campeonato> campeonato = campeonatoRepo.findById(id);
+        Optional<Time> primeiroLugar = timeRepo.findById(vencedorUpdateForm.getPrimeiroLugarId());
+        Optional<Time> segundoLugar = timeRepo.findById(vencedorUpdateForm.getSegundoLugarId());
+        Optional<Time> terceiroLugar = timeRepo.findById(vencedorUpdateForm.getTerceiroLugarId());
+        if(campeonato.isPresent() && primeiroLugar.isPresent() && segundoLugar.isPresent() && terceiroLugar.isPresent()) {
+            return vencedorUpdateForm.update(campeonato.get(), primeiroLugar.get(), segundoLugar.get(), terceiroLugar.get());
+        }
+        throw new NotFoundException("Não foi possível atribuir a colocação dos times!");
     }
 }

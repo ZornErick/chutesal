@@ -34,6 +34,9 @@ public class CampeonatoDto {
     private List<Jogo> jogos;
     private List<Time> times;
     private List<Inscrito> inscritos;
+    private Time primeiroLugar;
+    private Time segundoLugar;
+    private Time terceiroLugar;
 
     public CampeonatoDto(Campeonato campeonato) {
         this.id = campeonato.getId();
@@ -48,6 +51,9 @@ public class CampeonatoDto {
         this.jogos = campeonato.getJogos();
         this.times = campeonato.getTimes();
         this.inscritos = campeonato.getInscritos();
+        this.primeiroLugar = campeonato.getPrimeiroLugar();
+        this.segundoLugar = campeonato.getSegundoLugar();
+        this.terceiroLugar = campeonato.getTerceiroLugar();
     }
 
     public List<CampeonatoDto> convert(List<Campeonato> campeonatos) {

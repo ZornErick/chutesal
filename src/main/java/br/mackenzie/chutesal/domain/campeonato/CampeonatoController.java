@@ -58,4 +58,10 @@ public class CampeonatoController {
         List<Inscrito> inscritos = campeonatoService.findInscritosByCampeonatoId(id);
         return ResponseEntity.ok(new InscritoDto().convert(inscritos));
     }
+
+    @PutMapping("/vencedores/{id}")
+    public ResponseEntity<CampeonatoDto> insertVencedores(@PathVariable("id") Long id, @RequestBody @Valid InsertVencedorForm insertVencedorForm) {
+        Campeonato campeonato = campeonatoService.insertVencedores(id, insertVencedorForm);
+        return ResponseEntity.ok(new CampeonatoDto(campeonato));
+    }
 }

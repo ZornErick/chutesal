@@ -33,6 +33,13 @@ public class Campeonato {
     private LocalDate dataFinalJogos;
     private LocalDate inicioDivulgacao;
 
+    @OneToOne
+    private Time primeiroLugar;
+    @OneToOne
+    private Time segundoLugar;
+    @OneToOne
+    private Time terceiroLugar;
+
     @ManyToOne
     @JsonIgnore
     private Unidade unidade;
