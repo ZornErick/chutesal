@@ -68,7 +68,7 @@ export function CampeonatoInfo() {
                 </div>
                 <div className={"flex flex-col w-4/12"}>
                     <Heading className={"text-gray-200 font-normal"} size={"sm"}>Classificação</Heading>
-                    <Vencedores />
+                    <Vencedores campeonatoId={idCampeonato} />
                 </div>
             </div>
         </main>

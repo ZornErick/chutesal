@@ -20,6 +20,8 @@ import TitleForm from "../../components/TitleForm/TitleForm";
 import Times, { ITime } from "../../components/Times/Times";
 import { IJogo } from "../Jogos/Jogos";
 import JogosCampeonatos from "../../components/JogosCampeonatos/JogosCampeonatos";
+import {Vencedores} from "../../components/Campeonato/Vencedores/Vencedores";
+import {GerenciarVencedores} from "../../components/Campeonato/Vencedores/GerenciarVencedores";
 
 export const statusCampeonato = [
   {
@@ -64,6 +66,9 @@ export interface ICampeonato {
   inscritos: IInscrito[];
   times: ITime[];
   jogos: IJogo[];
+  primeiroLugar: ITime;
+  segundoLugar: ITime;
+  terceiroLugar: ITime;
 }
 
 export function GerenciarCampeonato() {
@@ -148,7 +153,7 @@ export function GerenciarCampeonato() {
     5: {
       label: "Vencedores",
       icon: <VencedorNavIcon />,
-      element: <></>,
+      element: <GerenciarVencedores />,
     },
   };
 
